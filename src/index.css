@@ -1,8 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100..900&display=swap');
 @import "tailwindcss";
 
+:root {
+  --color-primary: #FAF0D7;
+  --color-secondary: #FFD9C0;
+  --color-accent: #8CC0DE;
+  --color-success: #CCEEBC;
+}
+
 body {
-  font-family: "Lexend Deca", sans-serif;
-  background-color: rgb(236, 236, 187);
+  font-family: "Sofia Sans Extra Condensed", sans-serif;
+  background-color: var(--color-primary);
   color: black;
+  font-weight: 200;
 }

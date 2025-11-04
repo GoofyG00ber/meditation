@@ -1,22 +1,29 @@
 <template>
-<div class="min-h-screen bg-slate-50">
+<div class="min-h-screen bg-gradient-to-br from-primary to-secondary -mt-28">
 <!-- Hero -->
 <section class="relative overflow-hidden">
-<div class="relative">
-<div class="h-96 md:h-[520px] w-full">
+<div class="relative h-96 md:h-[520px] w-full">
 <img :src="heroImg" alt="hero" class="object-cover w-full h-full" />
-<!-- gradient fade to right to create a sided fade -->
-<div class="absolute inset-0 bg-gradient-to-r from-black/30 via-transparent to-transparent"></div>
-</div>
+<!-- gradient fade to left -->
+<div class="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-transparent"></div>
 
-<div class="container mx-auto px-6">
-<div class="relative -mt-28 md:-mt-36">
-<div class="max-w-3xl ml-auto bg-white/90 backdrop-blur-sm rounded-2xl p-8 shadow-lg transform translate-x-6 md:translate-x-12">
-<h1 class="text-3xl md:text-4xl font-extrabold text-gray-900">Lépj be a tudatos jelenlét világába</h1>
-<p class="mt-3 text-gray-700">Rövid meditációk és tematikus sorozatok — egyszerű, modern és hatékony módszerek minden napra.</p>
-<div class="mt-6 flex gap-4">
-<router-link to="/sessions" class="inline-block bg-indigo-600 text-white px-5 py-2 rounded-lg shadow hover:bg-indigo-700">Indíts egy ülést</router-link>
-<router-link to="/about" class="inline-block border border-gray-300 text-gray-800 px-5 py-2 rounded-lg">Rólunk</router-link>
+<!-- Hero Text Overlay -->
+<div class="absolute inset-0 flex items-center">
+<div class="container mx-auto px-6 md:px-12">
+<div class="max-w-2xl">
+<h1 class="text-4xl md:text-3xl lg:text-4xl font-extrabold text-white leading-tight drop-shadow-2xl">
+Egy pillanat
+a nyugalomra –<br>
+<span class="text-secondary">egy nap</span>
+<span class="text-success"> a hatékonyságra.</span>
+</h1>
+<div class="mt-8 flex flex-wrap gap-4">
+<router-link to="/sessions" class="rainbow-text inline-block bg-accent text-white px-6 py-3 rounded-lg shadow-lg hover:bg-accent/80 transition-all hover:scale-105 font-semibold">
+Meditációs módszerek
+</router-link>
+<router-link to="/about" class="inline-block border-2 border-white text-white px-6 py-3 rounded-lg hover:bg-white/20 transition-all backdrop-blur-sm font-semibold">
+Rólunk
+</router-link>
 </div>
 </div>
 </div>
@@ -25,6 +32,22 @@
 </section>
 
 <main class="container mx-auto px-6 py-12">
+
+<!-- Attention Block -->
+<section class="mb-16 -mt-6">
+<div class="bg-gradient-to-r from-accent/30 to-success/30 backdrop-blur-lg rounded-3xl p-10 md:p-14 shadow-2xl border border-white/40 transform hover:scale-[1.02] transition-transform duration-300">
+<div class="max-w-4xl mx-auto text-center">
+<h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-6 leading-relaxed">
+Az orvosi hivatás kihívásaihoz nemcsak tudás, hanem lelki állóképesség is kell.
+</h2>
+<p class="text-lg md:text-xl text-gray-700 leading-relaxed">
+Az <span class="font-semibold text-accent">InnerBloom</span> segít megtalálni a belső nyugalmat,
+hogy fókuszált, tudatos és kiegyensúlyozott maradj – akár reggel, tanulás közben, vagy egy stresszes nap végén.
+</p>
+</div>
+</div>
+</section>
+
 <!-- Feature cards -->
 <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
 <FeatureCard
@@ -40,7 +63,7 @@ v-for="feature in features"
 <section class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
 <div class="md:col-span-2 bg-white rounded-2xl p-8 shadow">
 <h2 class="text-2xl font-bold">Miért működik?</h2>
-<p class="mt-4 text-gray-600">A rendszeres gyakorlás kis lépésekben építkezik. Tudatos légzés, rövid fókusz gyakorlatok és következetes időbeosztás.</p>
+<p class="mt-4 text-gray-700">A rendszeres gyakorlás kis lépésekben építkezik. Tudatos légzés, rövid fókusz gyakorlatok és következetes időbeosztás.</p>
 </div>
 
 <div class="bg-white rounded-2xl p-4 shadow flex items-center justify-center h-40">
@@ -68,3 +91,24 @@ const features = [
   { title: 'Controlled Breathing', description: 'Légzésszabályozó gyakorlatok vizuális vezérléssel.', to: '/features/breathing' },
 ]
 </script>
+
+<style scoped>
+.rainbow-text {
+  animation: rainbow 3s linear infinite;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  transition: filter 0.3s ease;
+}
+
+.rainbow-text:hover {
+  filter: saturate(1.5) brightness(1.1);
+  animation-duration: 1.5s;
+}
+
+@keyframes rainbow {
+  0% { color: #FAF0D7; text-shadow: 0 0 15px rgba(250, 240, 215, 0.8); }
+  25% { color: #FFD9C0; text-shadow: 0 0 15px rgba(255, 217, 192, 0.8); }
+  50% { color: #CCEEBC; text-shadow: 0 0 15px rgba(204, 238, 188, 0.8); }
+  75% { color: #8CC0DE; text-shadow: 0 0 15px rgba(140, 192, 222, 0.8); }
+  100% { color: #FAF0D7; text-shadow: 0 0 15px rgba(250, 240, 215, 0.8); }
+}
+</style>

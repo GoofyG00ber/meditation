@@ -1,5 +1,5 @@
 <template>
-    <footer v-if="!hide" class="bg-[rgb(122,218,165)] text-black border-t border-[rgb(225,170,54)] p-4 flex flex-col gap-1">
+    <footer v-if="!hide" class="bg-accent/70 text-black border-t border-secondary p-4 flex flex-col gap-1">
 
 
 
@@ -62,16 +62,16 @@
       </div>
     </div>
   </footer>
-  <div class="bg-gray-700">
+  <div class="bg-primary/70">
 
 <table class="w-full table-fixed font-medium text-sm">
   <tr>
     <td class="text-left text-white align-middle w-1/2 px-4">© {{ year }} Meditation App. All rights reserved.</td>
     <td class="text-right align-middle text-white w-1/2 px-4">
       <div class="flex flex-col md:flex-row md:items-center md:justify-end gap-2 md:gap-4">
-        <router-link to="/ASZF" class="text-[rgb(225,170,54)]">ÁSZF</router-link>
-        <router-link to="/privacy-policy" class="text-[rgb(225,170,54)]">Adatkezelési tájékoztató</router-link>
-        <router-link to="/hazirend" class="text-[rgb(225,170,54)]">Házirend</router-link>
+        <router-link to="/ASZF" class="text-secondary">ÁSZF</router-link>
+        <router-link to="/privacy-policy" class="text-secondary">Adatkezelési tájékoztató</router-link>
+        <router-link to="/hazirend" class="text-secondary">Házirend</router-link>
       </div>
     </td>
   </tr>
