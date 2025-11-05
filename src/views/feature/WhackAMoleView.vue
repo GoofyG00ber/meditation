@@ -141,8 +141,8 @@
           <div v-if="showGuestNotification" class="mt-4 bg-linear-to-r from-secondary/90 to-accent/90 text-white rounded-xl p-4 shadow-lg text-center">
             <p class="text-lg font-bold">👋 Vendég mód</p>
             <p class="text-sm mb-2">Pontok gyűjtéséhez és szintlépéshez jelentkezz be!</p>
-            <router-link 
-              to="/login" 
+            <router-link
+              to="/login"
               class="inline-block bg-white text-gray-800 px-4 py-2 rounded-lg font-semibold hover:bg-gray-100 transition-all text-xs"
             >
               Bejelentkezés →
@@ -266,11 +266,11 @@ const endGame = () => {
   if (gameInterval !== null) window.clearInterval(gameInterval)
   if (moleInterval !== null) window.clearInterval(moleInterval)
   activeMole.value = null
-  
+
   if (score.value > highScore.value) {
     highScore.value = score.value
   }
-  
+
   // Award points if user is logged in
   if (authStore.isAuthenticated && score.value > 0) {
     const points = calculateWhackAMolePoints(score.value)

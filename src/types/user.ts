@@ -5,7 +5,6 @@ export interface User {
   password: string
   points: number
   level: number
-  experience: number
   createdAt: string
   achievements: string[]
 }
@@ -16,7 +15,6 @@ export interface UserProfile {
   email: string
   points: number
   level: number
-  experience: number
   createdAt: string
   achievements: string[]
 }

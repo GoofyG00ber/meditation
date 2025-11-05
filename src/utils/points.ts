@@ -5,53 +5,75 @@ export const POINTS_CONFIG = {
   WHACK_A_MOLE_PER_SCORE: 2,
   BREATHING_COMPLETION: 20,
   BREATHING_PER_CYCLE: 5,
-  
-  // Experience needed for each level
+
+  // Points needed for each level
   LEVEL_THRESHOLDS: [
-    0,    // Level 1
-    100,  // Level 2
-    250,  // Level 3
-    450,  // Level 4
-    700,  // Level 5
+    0, // Level 1
+    100, // Level 2
+    250, // Level 3
+    450, // Level 4
+    700, // Level 5
     1000, // Level 6
     1400, // Level 7
     1850, // Level 8
     2400, // Level 9
     3000, // Level 10
-  ]
+  ],
+}
+
+// Totem animals for each level range
+export const TOTEM_ANIMALS = {
+  1: { emoji: '🐜', name: 'Nyüzsgő Hangya', color: '#8B4513' },
+  2: { emoji: '🐢', name: 'Lassú Teknős', color: '#6B8E23' },
+  3: { emoji: '🐊', name: 'Nyugodt Alligátor', color: '#2F4F4F' },
+  4: { emoji: '🦎', name: 'Türelmes Gyík', color: '#32CD32' },
+  5: { emoji: '🐸', name: 'Békés Béka', color: '#228B22' },
+  6: { emoji: '🦉', name: 'Bölcs Bagoly', color: '#8B7355' },
+  7: { emoji: '🦋', name: 'Lebegő Pillangó', color: '#9370DB' },
+  8: { emoji: '🕊️', name: 'Szabad Galamb', color: '#B0C4DE' },
+  9: { emoji: '🐦', name: 'Harmonikus Kék Madár', color: '#4169E1' },
+  10: { emoji: '🦅', name: 'Szárnyaló Sas', color: '#FFD700' },
 }
 
 export interface LevelInfo {
   level: number
-  currentExp: number
-  expForCurrentLevel: number
-  expForNextLevel: number
+  currentPoints: number
+  pointsForCurrentLevel: number
+  pointsForNextLevel: number
   progress: number // 0-100
+  totemAnimal: {
+    emoji: string
+    name: string
+    color: string
+  }
 }
 
-export function calculateLevel(experience: number): LevelInfo {
+export function calculateLevel(points: number): LevelInfo {
   let level = 1
-  
+
   for (let i = POINTS_CONFIG.LEVEL_THRESHOLDS.length - 1; i >= 0; i--) {
     const threshold = POINTS_CONFIG.LEVEL_THRESHOLDS[i]
-    if (threshold !== undefined && experience >= threshold) {
+    if (threshold !== undefined && points >= threshold) {
       level = i + 1
       break
     }
   }
-  
-  const expForCurrentLevel = POINTS_CONFIG.LEVEL_THRESHOLDS[level - 1] || 0
-  const expForNextLevel = POINTS_CONFIG.LEVEL_THRESHOLDS[level] || expForCurrentLevel + 1000
-  const expInCurrentLevel = experience - expForCurrentLevel
-  const expNeededForLevel = expForNextLevel - expForCurrentLevel
-  const progress = Math.min(100, (expInCurrentLevel / expNeededForLevel) * 100)
-  
+
+  const pointsForCurrentLevel = POINTS_CONFIG.LEVEL_THRESHOLDS[level - 1] || 0
+  const pointsForNextLevel = POINTS_CONFIG.LEVEL_THRESHOLDS[level] || pointsForCurrentLevel + 1000
+  const pointsInCurrentLevel = points - pointsForCurrentLevel
+  const pointsNeededForLevel = pointsForNextLevel - pointsForCurrentLevel
+  const progress = Math.min(100, (pointsInCurrentLevel / pointsNeededForLevel) * 100)
+
+  const totemAnimal = TOTEM_ANIMALS[level as keyof typeof TOTEM_ANIMALS] || TOTEM_ANIMALS[1]
+
   return {
     level,
-    currentExp: experience,
-    expForCurrentLevel,
-    expForNextLevel,
-    progress
+    currentPoints: points,
+    pointsForCurrentLevel,
+    pointsForNextLevel,
+    progress,
+    totemAnimal,
   }
 }
 

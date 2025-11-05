@@ -14,7 +14,18 @@ The meditation app now has a complete authentication and gamification system wit
 ### 2. Points & Leveling System
 - **Experience Points**: Earn XP for completing meditation games
 - **Level System**: 10 levels with increasing XP requirements
-- **Progress Tracking**: Visual progress bar showing level advancement
+- **Totem Animals**: Each level has a unique calmness totem animal
+  - Level 1: 🐜 Nyüzsgő Hangya (Busy Ant)
+  - Level 2: 🐢 Lassú Teknős (Slow Turtle)
+  - Level 3: 🐊 Nyugodt Alligátor (Calm Alligator)
+  - Level 4: 🦎 Türelmes Gyík (Patient Lizard)
+  - Level 5: 🐸 Békés Béka (Peaceful Frog)
+  - Level 6: 🦉 Bölcs Bagoly (Wise Owl)
+  - Level 7: 🦋 Lebegő Pillangó (Floating Butterfly)
+  - Level 8: �️ Szabad Galamb (Free Dove)
+  - Level 9: 🐦 Harmonikus Kék Madár (Harmonious Blue Bird)
+  - Level 10: 🦅 Szárnyaló Sas (Soaring Eagle)
+- **Progress Tracking**: Visual progress bar colored by current totem animal
 - **Achievements**: Unlock achievements for milestones
 
 ### 3. Game Integration
@@ -81,17 +92,19 @@ Open two terminal windows:
 
 ## Level System Details
 
-### Level Thresholds
-- Level 1: 0 XP
-- Level 2: 100 XP
-- Level 3: 250 XP
-- Level 4: 450 XP
-- Level 5: 700 XP
-- Level 6: 1000 XP
-- Level 7: 1400 XP
-- Level 8: 1850 XP
-- Level 9: 2400 XP
-- Level 10: 3000 XP
+### Level Thresholds & Totem Animals
+- Level 1 (0 XP): 🐜 **Nyüzsgő Hangya** - Brown (#8B4513)
+- Level 2 (100 XP): � **Lassú Teknős** - Olive Green (#6B8E23)
+- Level 3 (250 XP): 🐊 **Nyugodt Alligátor** - Dark Slate Gray (#2F4F4F)
+- Level 4 (450 XP): 🦎 **Türelmes Gyík** - Lime Green (#32CD32)
+- Level 5 (700 XP): 🐸 **Békés Béka** - Forest Green (#228B22)
+- Level 6 (1000 XP): 🦉 **Bölcs Bagoly** - Tan (#8B7355)
+- Level 7 (1400 XP): 🦋 **Lebegő Pillangó** - Medium Purple (#9370DB)
+- Level 8 (1850 XP): 🕊️ **Szabad Galamb** - Light Steel Blue (#B0C4DE)
+- Level 9 (2400 XP): 🐦 **Harmonikus Kék Madár** - Royal Blue (#4169E1)
+- Level 10 (3000 XP): 🦅 **Szárnyaló Sas** - Gold (#FFD700)
+
+Each totem animal represents a unique state of calmness and spiritual progression on your meditation journey.
 
 ### Points Calculation
 **Whack-A-Mole:**

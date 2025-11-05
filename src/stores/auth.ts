@@ -14,36 +14,33 @@ export const useAuthStore = defineStore('auth', () => {
   const isAuthenticated = computed(() => currentUser.value !== null)
   const levelInfo = computed(() => {
     if (!currentUser.value) return null
-    return calculateLevel(currentUser.value.experience)
+    return calculateLevel(currentUser.value.points)
   })
 
   async function login(credentials: LoginCredentials) {
     isLoading.value = true
     error.value = null
-    
+
     try {
-      const response = await fetch(`${API_URL}/users?email=${credentials.email}&password=${credentials.password}`)
-      const users: User[] = await response.json()
-      
-      if (users.length === 0) {
-        error.value = 'Invalid email or password'
+      const response = await fetch(`${API_URL}/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(credentials)
+      })
+
+      if (!response.ok) {
+        const errorData = await response.json()
+        error.value = errorData.error || 'Invalid email or password'
         return false
       }
-      
-      const user = users[0]
-      if (!user) {
-        error.value = 'Invalid email or password'
-        return false
-      }
-      
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { password, ...profile } = user
-      currentUser.value = profile
+
+      const user: UserProfile = await response.json()
+      currentUser.value = user
       isGuest.value = false
-      
+
       // Store in localStorage for persistence
       localStorage.setItem('userId', user.id.toString())
-      
+
       return true
     } catch {
       error.value = 'Failed to login. Please try again.'
@@ -56,43 +53,26 @@ export const useAuthStore = defineStore('auth', () => {
   async function register(data: RegisterData) {
     isLoading.value = true
     error.value = null
-    
+
     try {
-      // Check if user already exists
-      const checkResponse = await fetch(`${API_URL}/users?email=${data.email}`)
-      const existingUsers: User[] = await checkResponse.json()
-      
-      if (existingUsers.length > 0) {
-        error.value = 'User with this email already exists'
-        return false
-      }
-      
-      // Create new user
-      const newUser: Omit<User, 'id'> = {
-        username: data.username,
-        email: data.email,
-        password: data.password,
-        points: 0,
-        level: 1,
-        experience: 0,
-        createdAt: new Date().toISOString(),
-        achievements: []
-      }
-      
       const response = await fetch(`${API_URL}/users`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(newUser)
+        body: JSON.stringify(data)
       })
-      
-      const createdUser: User = await response.json()
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { password, ...profile } = createdUser
-      currentUser.value = profile
+
+      if (!response.ok) {
+        const errorData = await response.json()
+        error.value = errorData.error || 'Failed to register. Please try again.'
+        return false
+      }
+
+      const createdUser: UserProfile = await response.json()
+      currentUser.value = createdUser
       isGuest.value = false
-      
+
       localStorage.setItem('userId', createdUser.id.toString())
-      
+
       return true
     } catch {
       error.value = 'Failed to register. Please try again.'
@@ -111,14 +91,14 @@ export const useAuthStore = defineStore('auth', () => {
   async function loadUserFromStorage() {
     const userId = localStorage.getItem('userId')
     if (!userId) return
-    
+
     try {
       const response = await fetch(`${API_URL}/users/${userId}`)
       if (!response.ok) {
         localStorage.removeItem('userId')
         return
       }
-      
+
       const user: User = await response.json()
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { password, ...profile } = user
@@ -134,34 +114,31 @@ export const useAuthStore = defineStore('auth', () => {
       // Guest user - show notification
       return false
     }
-    
+
     try {
-      const newExperience = currentUser.value.experience + points
       const newPoints = currentUser.value.points + points
-      const newLevelInfo = calculateLevel(newExperience)
-      
+      const newLevelInfo = calculateLevel(newPoints)
+
       const updatedUser = {
         ...currentUser.value,
         points: newPoints,
-        experience: newExperience,
         level: newLevelInfo.level
       }
-      
+
       const response = await fetch(`${API_URL}/users/${currentUser.value.id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           points: newPoints,
-          experience: newExperience,
           level: newLevelInfo.level
         })
       })
-      
+
       if (response.ok) {
         currentUser.value = updatedUser
         return true
       }
-      
+
       return false
     } catch {
       error.value = 'Failed to update points'
@@ -173,10 +150,10 @@ export const useAuthStore = defineStore('auth', () => {
     if (!currentUser.value || currentUser.value.achievements.includes(achievement)) {
       return false
     }
-    
+
     try {
       const updatedAchievements = [...currentUser.value.achievements, achievement]
-      
+
       const response = await fetch(`${API_URL}/users/${currentUser.value.id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
@@ -184,12 +161,12 @@ export const useAuthStore = defineStore('auth', () => {
           achievements: updatedAchievements
         })
       })
-      
+
       if (response.ok) {
         currentUser.value.achievements = updatedAchievements
         return true
       }
-      
+
       return false
     } catch {
       return false

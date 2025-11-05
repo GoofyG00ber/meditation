@@ -24,7 +24,7 @@
           <div class="mt-4">
             <button @click="toggle" :class="['px-4 py-2 rounded-md', running ? 'bg-red-500 text-white' : 'bg-indigo-600 text-white']">{{ running ? 'Stop' : 'Start' }}</button>
           </div>
-          
+
           <!-- Points Notification -->
           <transition name="notification">
             <div v-if="showPointsNotification" class="mt-4 bg-linear-to-r from-success/90 to-accent/90 text-white rounded-xl p-4 shadow-lg text-center">
@@ -38,8 +38,8 @@
             <div v-if="showGuestNotification" class="mt-4 bg-linear-to-r from-secondary/90 to-accent/90 text-white rounded-xl p-4 shadow-lg text-center">
               <p class="text-lg font-bold">👋 Vendég mód</p>
               <p class="text-sm mb-2">Pontok gyűjtéséhez és szintlépéshez jelentkezz be!</p>
-              <router-link 
-                to="/login" 
+              <router-link
+                to="/login"
                 class="inline-block bg-white text-gray-800 px-4 py-2 rounded-lg font-semibold hover:bg-gray-100 transition-all text-sm"
               >
                 Bejelentkezés →
@@ -97,7 +97,7 @@ function startCycle() {
   // Start the breathing cycle
   cycleTimer = window.setInterval(() => {
     phase.value = (phase.value + 1) % 3
-    
+
     // Count completed cycles (when returning to Belégzés)
     if (phase.value === 0) {
       cyclesCompleted.value++
@@ -115,7 +115,7 @@ function stopCycle() {
   if (cycleTimer) window.clearInterval(cycleTimer)
   cycleTimer = undefined
   phase.value = 2 // Reset to end of kilégzés (small circle)
-  
+
   // Award points if user completed at least one cycle
   if (cyclesCompleted.value > 0) {
     if (authStore.isAuthenticated) {
@@ -134,7 +134,7 @@ function stopCycle() {
       }, 5000)
     }
   }
-  
+
   cyclesCompleted.value = 0
 }
 

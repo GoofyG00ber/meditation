@@ -10,4 +10,8 @@ const pinia = createPinia()
 app.use(pinia)
 app.use(router)
 
+// Load user data from localStorage on app start
+const authStore = (await import('./stores/auth')).useAuthStore()
+authStore.loadUserFromStorage()
+
 app.mount('#app')
