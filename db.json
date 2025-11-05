@@ -1,0 +1,31 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "username": "demo_user",
+      "email": "demo@meditation.com",
+      "password": "demo123",
+      "points": 150,
+      "level": 2,
+      "experience": 150,
+      "createdAt": "2025-11-01T10:00:00.000Z",
+      "achievements": [
+        "first_game",
+        "stress_buster"
+      ]
+    },
+    {
+      "id": "fe3d",
+      "username": "imre",
+      "email": "asd@asd.hu",
+      "password": "asdfas123",
+      "points": 24,
+      "level": 1,
+      "experience": 24,
+      "createdAt": "2025-11-05T15:48:15.296Z",
+      "achievements": [
+        "stress_buster"
+      ]
+    }
+  ]
+}

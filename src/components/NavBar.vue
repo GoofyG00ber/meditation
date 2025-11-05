@@ -5,7 +5,7 @@
     <div class="text-xl font-bold">
       <img src="/logo.png" alt="Meditation App" class="h-20" />
     </div>
-    <ul class="flex space-x-4">
+    <ul class="flex space-x-4 items-center">
       <li>
         <router-link
           to="/"
@@ -30,6 +30,25 @@
           About
         </router-link>
       </li>
+      
+      <!-- Auth Section -->
+      <li v-if="authStore.isAuthenticated" class="ml-2">
+        <router-link
+          to="/profile"
+          :class="['nav-link px-4 py-2 rounded-lg transition-all duration-300 flex items-center gap-2', isHomePage && !scrolled ? 'text-white' : 'text-black']"
+        >
+          <span>{{ authStore.currentUser?.username }}</span>
+          <span class="text-xs bg-accent text-black px-2 py-1 rounded-full font-bold">Lvl {{ authStore.levelInfo?.level || 1 }}</span>
+        </router-link>
+      </li>
+      <li v-else class="ml-2">
+        <router-link
+          to="/login"
+          :class="['px-4 py-2 rounded-lg transition-all duration-300 font-semibold', isHomePage && !scrolled ? 'bg-white text-black hover:bg-white/90' : 'bg-accent text-black hover:bg-accent/80']"
+        >
+          Bejelentkezés
+        </router-link>
+      </li>
     </ul>
   </nav>
 </template>
@@ -37,9 +56,11 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, computed } from 'vue'
 import { useRoute } from 'vue-router'
+import { useAuthStore } from '../stores/auth'
 
 const route = useRoute()
 const scrolled = ref(false)
+const authStore = useAuthStore()
 
 const isHomePage = computed(() => route.path === '/')
 
@@ -49,6 +70,7 @@ const handleScroll = () => {
 
 onMounted(() => {
   window.addEventListener('scroll', handleScroll)
+  authStore.loadUserFromStorage()
 })
 
 onUnmounted(() => {

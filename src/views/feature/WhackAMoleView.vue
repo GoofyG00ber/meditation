@@ -128,8 +128,30 @@
           </div>
         </div>
 
+        <!-- Points Notification -->
+        <transition name="notification">
+          <div v-if="showPointsNotification" class="mt-4 bg-linear-to-r from-success/90 to-accent/90 text-white rounded-xl p-4 shadow-lg text-center">
+            <p class="text-lg font-bold">🎉 Gratulálunk!</p>
+            <p class="text-sm">Szereztél {{ pointsEarned }} pontot!</p>
+          </div>
+        </transition>
+
+        <!-- Guest Notification -->
+        <transition name="notification">
+          <div v-if="showGuestNotification" class="mt-4 bg-linear-to-r from-secondary/90 to-accent/90 text-white rounded-xl p-4 shadow-lg text-center">
+            <p class="text-lg font-bold">👋 Vendég mód</p>
+            <p class="text-sm mb-2">Pontok gyűjtéséhez és szintlépéshez jelentkezz be!</p>
+            <router-link 
+              to="/login" 
+              class="inline-block bg-white text-gray-800 px-4 py-2 rounded-lg font-semibold hover:bg-gray-100 transition-all text-xs"
+            >
+              Bejelentkezés →
+            </router-link>
+          </div>
+        </transition>
+
         <!-- Instructions -->
-        <div class="bg-gradient-to-r from-accent/20 to-success/20 backdrop-blur rounded-2xl p-3 mt-3 shadow-lg">
+        <div class="bg-linear-to-r from-accent/20 to-success/20 backdrop-blur rounded-2xl p-3 mt-3 shadow-lg">
           <h3 class="text-base font-bold text-gray-800 mb-1">📋 Játék szabályok</h3>
           <ul class="text-gray-700 space-y-1 text-xs">
             <li>✓ Töltsd fel azt a képet, ami a stresszedet jelképezi (vagy használd az alapértelmezett emojit)</li>
@@ -156,7 +178,10 @@
 
 <script setup lang="ts">
 import { ref, onUnmounted } from 'vue'
+import { useAuthStore } from '../../stores/auth'
+import { calculateWhackAMolePoints } from '../../utils/points'
 
+const authStore = useAuthStore()
 const score = ref(0)
 const highScore = ref(0)
 const timeLeft = ref(30)
@@ -164,6 +189,9 @@ const gameActive = ref(false)
 const activeMole = ref<number | null>(null)
 const hitEffect = ref<number | null>(null)
 const uploadedImage = ref<string | null>(null)
+const showGuestNotification = ref(false)
+const pointsEarned = ref(0)
+const showPointsNotification = ref(false)
 
 let gameInterval: number | null = null
 let moleInterval: number | null = null
@@ -238,9 +266,30 @@ const endGame = () => {
   if (gameInterval !== null) window.clearInterval(gameInterval)
   if (moleInterval !== null) window.clearInterval(moleInterval)
   activeMole.value = null
-
+  
   if (score.value > highScore.value) {
     highScore.value = score.value
+  }
+  
+  // Award points if user is logged in
+  if (authStore.isAuthenticated && score.value > 0) {
+    const points = calculateWhackAMolePoints(score.value)
+    pointsEarned.value = points
+    authStore.addPoints(points)
+    authStore.addAchievement('stress_buster')
+    if (score.value >= 20) {
+      authStore.addAchievement('whack_champion')
+    }
+    showPointsNotification.value = true
+    setTimeout(() => {
+      showPointsNotification.value = false
+    }, 5000)
+  } else if (!authStore.isAuthenticated && score.value > 0) {
+    // Show guest notification
+    showGuestNotification.value = true
+    setTimeout(() => {
+      showGuestNotification.value = false
+    }, 5000)
   }
 }
 
@@ -310,6 +359,25 @@ onUnmounted(() => {
 }
 
 .hit-leave-to {
+  opacity: 0;
+}
+
+.notification-enter-active, .notification-leave-active {
+  transition: all 0.3s ease;
+}
+
+.notification-enter-from {
+  transform: translateY(-20px);
+  opacity: 0;
+}
+
+.notification-enter-to {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.notification-leave-to {
+  transform: translateY(-20px);
   opacity: 0;
 }
 </style>

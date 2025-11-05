@@ -24,6 +24,28 @@
           <div class="mt-4">
             <button @click="toggle" :class="['px-4 py-2 rounded-md', running ? 'bg-red-500 text-white' : 'bg-indigo-600 text-white']">{{ running ? 'Stop' : 'Start' }}</button>
           </div>
+          
+          <!-- Points Notification -->
+          <transition name="notification">
+            <div v-if="showPointsNotification" class="mt-4 bg-linear-to-r from-success/90 to-accent/90 text-white rounded-xl p-4 shadow-lg text-center">
+              <p class="text-lg font-bold">🎉 Gratulálunk!</p>
+              <p class="text-sm">Szereztél {{ pointsEarned }} pontot {{ cyclesCompleted }} ciklus meditálásért!</p>
+            </div>
+          </transition>
+
+          <!-- Guest Notification -->
+          <transition name="notification">
+            <div v-if="showGuestNotification" class="mt-4 bg-linear-to-r from-secondary/90 to-accent/90 text-white rounded-xl p-4 shadow-lg text-center">
+              <p class="text-lg font-bold">👋 Vendég mód</p>
+              <p class="text-sm mb-2">Pontok gyűjtéséhez és szintlépéshez jelentkezz be!</p>
+              <router-link 
+                to="/login" 
+                class="inline-block bg-white text-gray-800 px-4 py-2 rounded-lg font-semibold hover:bg-gray-100 transition-all text-sm"
+              >
+                Bejelentkezés →
+              </router-link>
+            </div>
+          </transition>
         </div>
       </div>
     </div>
@@ -31,11 +53,18 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, onUnmounted } from 'vue'
+import { useAuthStore } from '../../stores/auth'
+import { calculateBreathingPoints } from '../../utils/points'
 
+const authStore = useAuthStore()
 const tempo = ref(6)
 const running = ref(false)
 const phase = ref(2) // Start at end of kilégzés (exhale) so Start will go into Belégzés immediately
+const cyclesCompleted = ref(0)
+const showGuestNotification = ref(false)
+const pointsEarned = ref(0)
+const showPointsNotification = ref(false)
 let cycleTimer: number | undefined
 
 const circleStyle = computed(() => ({
@@ -68,6 +97,11 @@ function startCycle() {
   // Start the breathing cycle
   cycleTimer = window.setInterval(() => {
     phase.value = (phase.value + 1) % 3
+    
+    // Count completed cycles (when returning to Belégzés)
+    if (phase.value === 0) {
+      cyclesCompleted.value++
+    }
   }, tempo.value * 1000)
 
   // Immediately trigger the first phase change to start Belégzés expansion
@@ -81,7 +115,32 @@ function stopCycle() {
   if (cycleTimer) window.clearInterval(cycleTimer)
   cycleTimer = undefined
   phase.value = 2 // Reset to end of kilégzés (small circle)
+  
+  // Award points if user completed at least one cycle
+  if (cyclesCompleted.value > 0) {
+    if (authStore.isAuthenticated) {
+      const points = calculateBreathingPoints(cyclesCompleted.value)
+      pointsEarned.value = points
+      authStore.addPoints(points)
+      authStore.addAchievement('breathing_master')
+      showPointsNotification.value = true
+      setTimeout(() => {
+        showPointsNotification.value = false
+      }, 5000)
+    } else {
+      showGuestNotification.value = true
+      setTimeout(() => {
+        showGuestNotification.value = false
+      }, 5000)
+    }
+  }
+  
+  cyclesCompleted.value = 0
 }
+
+onUnmounted(() => {
+  if (cycleTimer) window.clearInterval(cycleTimer)
+})
 
 function toggle() {
   running.value = !running.value
@@ -89,3 +148,24 @@ function toggle() {
   else stopCycle()
 }
 </script>
+
+<style scoped>
+.notification-enter-active, .notification-leave-active {
+  transition: all 0.3s ease;
+}
+
+.notification-enter-from {
+  transform: translateY(-20px);
+  opacity: 0;
+}
+
+.notification-enter-to {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.notification-leave-to {
+  transform: translateY(-20px);
+  opacity: 0;
+}
+</style>
