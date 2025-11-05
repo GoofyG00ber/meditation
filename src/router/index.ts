@@ -9,6 +9,7 @@ import SleepSoundsView from '../views/feature/SleepSoundsView.vue'
 import VideosView from '../views/feature/VideosView.vue'
 import TimedMeditationView from '../views/feature/TimedMeditationView.vue'
 import BreathingView from '../views/feature/BreathingView.vue'
+import WhackAMoleView from '../views/feature/WhackAMoleView.vue'
 
 
 
@@ -24,6 +25,7 @@ const routes = [
   { path: '/features/videos', name: 'Videos', component: VideosView },
   { path: '/features/timed-meditation', name: 'TimedMeditation', component: TimedMeditationView },
   { path: '/features/breathing', name: 'Breathing', component: BreathingView },
+  { path: '/features/whack-a-mole', name: 'WhackAMole', component: WhackAMoleView },
 ]
 
 const router = createRouter({

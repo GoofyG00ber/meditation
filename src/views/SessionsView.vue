@@ -111,6 +111,11 @@
             :to="'/features/grounding'"
           />
           <FeatureCard
+            :title="'Whack-a-Mole játék'"
+            :description="'Ütögesd ki a stresszt interaktív játékkal!'"
+            :to="'/features/whack-a-mole'"
+          />
+          <FeatureCard
             :title="'Controlled Breathing'"
             :description="'Légzésszabályozó gyakorlatok vizuális vezérléssel.'"
             :to="'/features/breathing'"
