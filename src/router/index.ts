@@ -48,26 +48,26 @@ const routes = [
   { path: '/features/timed-meditation', name: 'TimedMeditation', component: TimedMeditationView },
   { path: '/features/breathing', name: 'Breathing', component: BreathingView },
   { path: '/features/whack-a-mole', name: 'WhackAMole', component: WhackAMoleView },
-  
+
   // Morning practices
   { path: '/features/morning-mindfulness', name: 'MorningMindfulness', component: MorningMindfulnessView },
   { path: '/features/morning-affirmations', name: 'MorningAffirmations', component: MorningAffirmationsView },
-  
+
   // Study/Learning practices
   { path: '/features/study-focus', name: 'StudyFocus', component: StudyFocusView },
   { path: '/features/memory-boost', name: 'MemoryBoost', component: MemoryBoostView },
   { path: '/features/study-break', name: 'StudyBreak', component: StudyBreakView },
-  
+
   // Evening practices
   { path: '/features/body-scan', name: 'BodyScan', component: BodyScanView },
   { path: '/features/evening-relaxation', name: 'EveningRelaxation', component: EveningRelaxationView },
   { path: '/features/daily-reflection', name: 'DailyReflection', component: DailyReflectionView },
-  
+
   // Stress relief practices
   { path: '/features/quick-stress-relief', name: 'QuickStressRelief', component: QuickStressReliefView },
   { path: '/features/panic-relief', name: 'PanicRelief', component: PanicReliefView },
   { path: '/features/grounding', name: 'Grounding', component: GroundingView },
-  
+
   // Auth
   { path: '/login', name: 'Login', component: LoginView },
   { path: '/register', name: 'Register', component: RegisterView },

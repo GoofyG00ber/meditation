@@ -3,7 +3,7 @@
 <!-- Hero -->
 <section class="relative overflow-hidden">
 <div class="relative h-96 md:h-[520px] w-full">
-<img :src="heroImg" alt="hero" class="object-cover w-full h-full" />
+<LazyImage :src="heroImg" alt="hero" class-name="object-cover w-full h-full" />
 <!-- gradient fade to left -->
 <div class="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-transparent"></div>
 
@@ -67,7 +67,7 @@ v-for="feature in features"
 </div>
 
 <div class="bg-white rounded-2xl p-4 shadow flex items-center justify-center h-40">
-<img :src="illustrationImg" alt="illustration" class="object-cover w-full h-full rounded-lg" />
+<LazyImage :src="illustrationImg" alt="illustration" class-name="object-cover w-full h-full rounded-lg" />
 </div>
 </section>
 </main>
@@ -78,8 +78,10 @@ v-for="feature in features"
 <script setup lang="ts">
 import { placeholderFor } from '../utils/placeholders'
 import FeatureCard from '../components/FeatureCard.vue'
+import LazyImage from '../components/LazyImage.vue'
 
-const heroImg = placeholderFor(0) as string
+// Use a fixed placeholder image for the hero to avoid swapping on refresh
+const heroImg = '/placeholder.jpg'
 const illustrationImg = placeholderFor(1) as string
 
 const features = [

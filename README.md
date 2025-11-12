@@ -29,6 +29,32 @@ See [Vite Configuration Reference](https://vite.dev/config/).
 npm install
 ```
 
+### Database Setup (Required for Production)
+
+Since this app uses MySQL for user authentication and data storage, you need to set up a database:
+
+1. **Create MySQL Database**
+   ```sql
+   CREATE TABLE IF NOT EXISTS users (
+     id VARCHAR(255) PRIMARY KEY,
+     username VARCHAR(255) NOT NULL,
+     email VARCHAR(255) UNIQUE NOT NULL,
+     password VARCHAR(255) NOT NULL,
+     points INT DEFAULT 0,
+     level INT DEFAULT 1,
+     createdAt DATETIME NOT NULL,
+     achievements JSON DEFAULT ('[]')
+   );
+   ```
+
+2. **Configure Database Connection**
+   - For production: Edit `api/.env` with your MySQL credentials
+   - For development: The app uses a local JSON server by default
+
+3. **Upload PHP API**
+   - Upload the `api/` folder to your web server
+   - Set `VITE_API_URL=https://yourdomain.com/api` in production
+
 ### Compile and Hot-Reload for Development
 
 ```sh

@@ -14,15 +14,15 @@
 
         <!-- Hero Image -->
         <div class="mb-12 rounded-2xl overflow-hidden shadow-lg">
-          <img :src="heroImage" alt="Pozitív affirmációk" class="w-full h-64 object-cover" />
+          <img :src="heroImage" alt="Pozitív affirmációk" class="w-full h-64 object-cover" loading="lazy" />
         </div>
 
         <!-- Introduction -->
         <div class="bg-white rounded-2xl p-8 shadow-lg mb-8">
           <h2 class="text-2xl font-bold text-gray-800 mb-4">Mi ez?</h2>
           <p class="text-gray-700 leading-relaxed mb-4">
-            A reggel első gondolatai határozzák meg, hogyan működik napközben az idegrendszered. 
-            A pozitív önbeszéd segít átállítani az agyad fenyegetés-üzemmódról teljesítmény-üzemmódra és a nyugalom állapotába. 
+            A reggel első gondolatai határozzák meg, hogyan működik napközben az idegrendszered.
+            A pozitív önbeszéd segít átállítani az agyad fenyegetés-üzemmódról teljesítmény-üzemmódra és a nyugalom állapotába.
             Ezzel tudatosan megalapozod a napod érzelmi tónusát.
           </p>
         </div>
@@ -30,7 +30,7 @@
         <!-- Practice Steps -->
         <div class="bg-white rounded-2xl p-8 shadow-lg mb-8">
           <h2 class="text-2xl font-bold text-gray-800 mb-6">Hogyan csináld?</h2>
-          
+
           <div class="space-y-6">
             <div class="flex gap-4">
               <div class="shrink-0 w-12 h-12 bg-indigo-500 text-white rounded-full flex items-center justify-center font-bold text-lg">1</div>
@@ -116,13 +116,13 @@
             <div>
               <h3 class="text-lg font-semibold text-gray-800 mb-2">The Power of Vulnerability - Brené Brown (20 perc)</h3>
               <div class="aspect-video rounded-lg overflow-hidden">
-                <iframe 
-                  width="100%" 
-                  height="100%" 
-                  src="https://www.youtube.com/embed/iCvmsMzlF7o" 
-                  title="The Power of Vulnerability" 
-                  frameborder="0" 
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                <iframe
+                  width="100%"
+                  height="100%"
+                  src="https://www.youtube.com/embed/iCvmsMzlF7o"
+                  title="The Power of Vulnerability"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowfullscreen
                   class="w-full h-full"
                 ></iframe>
@@ -132,13 +132,13 @@
             <div>
               <h3 class="text-lg font-semibold text-gray-800 mb-2">The Power of Words (8 perc)</h3>
               <div class="aspect-video rounded-lg overflow-hidden">
-                <iframe 
-                  width="100%" 
-                  height="100%" 
-                  src="https://www.youtube.com/embed/tgS7bFWlqsw" 
-                  title="The Power of Words" 
-                  frameborder="0" 
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                <iframe
+                  width="100%"
+                  height="100%"
+                  src="https://www.youtube.com/embed/tgS7bFWlqsw"
+                  title="The Power of Words"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowfullscreen
                   class="w-full h-full"
                 ></iframe>
@@ -149,13 +149,13 @@
 
         <!-- Back Button -->
         <div class="mt-8 flex justify-center gap-4">
-          <router-link 
-            to="/sessions" 
+          <router-link
+            to="/sessions"
             class="inline-block bg-indigo-500 hover:bg-indigo-600 text-white font-semibold px-8 py-3 rounded-lg transition-colors"
           >
             ← Vissza a gyakorlatokhoz
           </router-link>
-          
+
           <button
             v-if="authStore.isAuthenticated && !completed"
             @click="() => completeExercise()"
@@ -165,7 +165,7 @@
             {{ completing ? 'Mentés...' : 'Gyakorlat befejezve ✓' }}
           </button>
         </div>
-        
+
         <!-- Completion Message -->
         <div v-if="completed" class="mt-6 bg-green-50 border-l-4 border-green-500 rounded-lg p-6 text-center">
           <p class="text-lg font-semibold text-green-800">🎉 Gratulálunk! Befejezted a gyakorlatot!</p>
@@ -173,11 +173,11 @@
         </div>
       </div>
     </div>
-    
+
     <!-- Badge Modal -->
-    <BadgeModal 
+    <BadgeModal
       v-if="newBadge"
-      :show="showBadgeModal" 
+      :show="showBadgeModal"
       :badge="newBadge"
       @close="closeBadgeModal"
     />

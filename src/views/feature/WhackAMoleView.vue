@@ -178,9 +178,9 @@
     </div>
 
     <!-- Badge Modal -->
-    <BadgeModal 
+    <BadgeModal
       v-if="newBadge"
-      :show="showBadgeModal" 
+      :show="showBadgeModal"
       :badge="newBadge"
       @close="closeBadgeModal"
     />
@@ -291,7 +291,7 @@ const endGame = async () => {
   if (authStore.isAuthenticated && score.value > 0) {
     const points = calculateWhackAMolePoints(score.value)
     pointsEarned.value = points
-    
+
     const result = await authStore.addPoints(points, 'whack_a_mole')
     if (result.success && result.newBadges.length > 0) {
       const badge = result.newBadges[0]
@@ -300,7 +300,7 @@ const endGame = async () => {
         showBadgeModal.value = true
       }
     }
-    
+
     showPointsNotification.value = true
     setTimeout(() => {
       showPointsNotification.value = false

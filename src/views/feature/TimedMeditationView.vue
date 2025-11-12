@@ -40,9 +40,9 @@
     </div>
 
     <!-- Badge Modal -->
-    <BadgeModal 
+    <BadgeModal
       v-if="newBadge"
-      :show="showBadgeModal" 
+      :show="showBadgeModal"
       :badge="newBadge"
       @close="closeBadgeModal"
     />
@@ -97,12 +97,12 @@ function updateDisplay(total: number) {
 async function stop() {
   running.value = false
   if (intervalId) window.clearInterval(intervalId)
-  
+
   // Award points if authenticated
   if (authStore.isAuthenticated && meditationMinutes.value > 0) {
     const points = calculateTimedMeditationPoints(meditationMinutes.value)
     earnedPoints.value = points
-    
+
     const result = await authStore.addPoints(points, 'timed_meditation')
     if (result.success && result.newBadges.length > 0) {
       const badge = result.newBadges[0]
@@ -111,7 +111,7 @@ async function stop() {
         showBadgeModal.value = true
       }
     }
-    
+
     completed.value = true
   }
 }

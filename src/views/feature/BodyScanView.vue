@@ -14,7 +14,7 @@
 
         <!-- Hero Image -->
         <div class="mb-12 rounded-2xl overflow-hidden shadow-2xl">
-          <img :src="heroImage" alt="Body Scan meditáció" class="w-full h-64 object-cover" />
+          <img :src="heroImage" alt="Body Scan meditáció" class="w-full h-64 object-cover" loading="lazy" />
         </div>
 
         <!-- Introduction -->
@@ -25,8 +25,8 @@
           </p>
           <div class="bg-purple-500/30 border-l-4 border-purple-400 p-4 rounded">
             <p class="font-medium">
-              💡 A Body Scan tudatosítja a rejtett izomfeszüléseket, és aktiválja a vagus-ideget, 
-              ami lelassítja a pulzust és megnyugtatja a testet. 
+              💡 A Body Scan tudatosítja a rejtett izomfeszüléseket, és aktiválja a vagus-ideget,
+              ami lelassítja a pulzust és megnyugtatja a testet.
               Klinikai kutatások szerint javítja az alvásminőséget és csökkenti az álmatlanság tüneteit.
             </p>
           </div>
@@ -35,7 +35,7 @@
         <!-- Practice Steps -->
         <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 shadow-lg mb-8">
           <h2 class="text-2xl font-bold mb-6">Hogyan csináld?</h2>
-          
+
           <div class="space-y-6">
             <!-- Step 1 -->
             <div class="flex gap-4">
@@ -43,9 +43,9 @@
               <div class="flex-1">
                 <h3 class="text-xl font-semibold mb-2">Helyezkedj el kényelmesen</h3>
                 <p class="text-gray-200 leading-relaxed">
-                  Feküdj a hátadra, és engedd, hogy a tested belesüppedjen az ágyba vagy a szőnyegbe. 
-                  Tegyél párnát a térded vagy a fejed alá, ha így kényelmesebb. 
-                  Ha nem tudsz lefeküdni, ülve is gyakorolhatod – a lényeg, hogy a tested stabil, mégis laza legyen. 
+                  Feküdj a hátadra, és engedd, hogy a tested belesüppedjen az ágyba vagy a szőnyegbe.
+                  Tegyél párnát a térded vagy a fejed alá, ha így kényelmesebb.
+                  Ha nem tudsz lefeküdni, ülve is gyakorolhatod – a lényeg, hogy a tested stabil, mégis laza legyen.
                   Zárd be a szemed, és mondd magadban: <span class="italic font-medium">"Most elengedem a napot."</span>
                 </p>
               </div>
@@ -57,9 +57,9 @@
               <div class="flex-1">
                 <h3 class="text-xl font-semibold mb-2">Lélegezz mélyen és lassan</h3>
                 <p class="text-gray-200 leading-relaxed">
-                  Kezdj néhány tudatos, mély lélegzettel. Lélegezz be az orrodon keresztül, 
-                  és érezd, ahogy a levegő megtölti a hasad – nem a mellkasod. 
-                  Kilégzéskor engedd, hogy minden feszültség távozzon. 
+                  Kezdj néhány tudatos, mély lélegzettel. Lélegezz be az orrodon keresztül,
+                  és érezd, ahogy a levegő megtölti a hasad – nem a mellkasod.
+                  Kilégzéskor engedd, hogy minden feszültség távozzon.
                   A vállak maradjanak lazák, a légzés pedig természetes, ritmusos, csendes.
                 </p>
               </div>
@@ -71,9 +71,9 @@
               <div class="flex-1">
                 <h3 class="text-xl font-semibold mb-2">Irányítsd a figyelmed a lábaidra</h3>
                 <p class="text-gray-200 leading-relaxed">
-                  Érezd a talpad érintkezését az ággyal, a súlyodat, a hőmérsékletet. 
-                  Lehet, hogy bizsergést, melegséget vagy enyhe feszültséget tapasztalsz – bármit érzel, az rendben van. 
-                  Ne próbálj változtatni rajta, csak figyeld. 
+                  Érezd a talpad érintkezését az ággyal, a súlyodat, a hőmérsékletet.
+                  Lehet, hogy bizsergést, melegséget vagy enyhe feszültséget tapasztalsz – bármit érzel, az rendben van.
+                  Ne próbálj változtatni rajta, csak figyeld.
                   Ha feszültséget érzel, lélegezz bele, és képzeld el, hogy a kilégzéssel ez a feszültség lassan elpárolog.
                 </p>
               </div>
@@ -85,8 +85,8 @@
               <div class="flex-1">
                 <h3 class="text-xl font-semibold mb-2">Haladj felfelé – lépésről lépésre</h3>
                 <p class="text-gray-200 leading-relaxed">
-                  Vezesd végig a figyelmedet a lábakon, a hason, mellkason, karokon, vállakon és a nyakon át egészen a fejed búbjáig. 
-                  Minden testrésznél állj meg néhány másodpercre, figyeld az érzéseket – meleget, lüktetést, nyugalmat vagy épp feszültséget. 
+                  Vezesd végig a figyelmedet a lábakon, a hason, mellkason, karokon, vállakon és a nyakon át egészen a fejed búbjáig.
+                  Minden testrésznél állj meg néhány másodpercre, figyeld az érzéseket – meleget, lüktetést, nyugalmat vagy épp feszültséget.
                   Ha bárhol kellemetlenséget észlelsz, lélegezz oda, és engedd el a kilégzéssel.
                 </p>
               </div>
@@ -98,8 +98,8 @@
               <div class="flex-1">
                 <h3 class="text-xl font-semibold mb-2">Tudatosítsd az egész tested</h3>
                 <p class="text-gray-200 leading-relaxed">
-                  Amikor a fejedhez érsz, képzeld el, hogy az egész tested egyszerre lélegzik. 
-                  Érezd, ahogy minden belégzéssel friss levegő, minden kilégzéssel megkönnyebbülés jár át. 
+                  Amikor a fejedhez érsz, képzeld el, hogy az egész tested egyszerre lélegzik.
+                  Érezd, ahogy minden belégzéssel friss levegő, minden kilégzéssel megkönnyebbülés jár át.
                   Maradj ebben az érzésben néhány percig – a teljes ellazulás, a biztonság és a csend állapotában.
                 </p>
               </div>
@@ -132,13 +132,13 @@
 
         <!-- Back Button -->
         <div class="mt-8 flex justify-center gap-4">
-          <router-link 
-            to="/sessions" 
+          <router-link
+            to="/sessions"
             class="inline-block bg-purple-500 hover:bg-purple-600 text-white font-semibold px-8 py-3 rounded-lg transition-colors"
           >
             ← Vissza a gyakorlatokhoz
           </router-link>
-          
+
           <button
             v-if="authStore.isAuthenticated && !completed"
             @click="() => completeExercise()"
@@ -148,7 +148,7 @@
             {{ completing ? 'Mentés...' : 'Gyakorlat befejezve ✓' }}
           </button>
         </div>
-        
+
         <!-- Completion Message -->
         <div v-if="completed" class="mt-6 bg-green-50 border-l-4 border-green-500 rounded-lg p-6 text-center">
           <p class="text-lg font-semibold text-green-800">🎉 Gratulálunk! Befejezted a gyakorlatot!</p>
@@ -156,11 +156,11 @@
         </div>
       </div>
     </div>
-    
+
     <!-- Badge Modal -->
-    <BadgeModal 
+    <BadgeModal
       v-if="newBadge"
-      :show="showBadgeModal" 
+      :show="showBadgeModal"
       :badge="newBadge"
       @close="closeBadgeModal"
     />

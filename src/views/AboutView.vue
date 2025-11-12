@@ -35,7 +35,7 @@
               </div>
             </div>
             <div class="rounded-2xl overflow-hidden shadow-xl h-80 md:h-96">
-              <img :src="aboutImg1" alt="InnerBloom" class="object-cover w-full h-full hover:scale-105 transition-transform duration-500" />
+              <LazyImage :src="aboutImg1" alt="InnerBloom" class-name="object-cover w-full h-full hover:scale-105 transition-transform duration-500" />
             </div>
           </div>
         </div>
@@ -54,7 +54,7 @@
           <!-- Team Member 1 - Peják Panka -->
           <article class="bg-white/95 backdrop-blur rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 flex flex-col items-center w-full max-w-sm h-[400px]">
             <div class="w-40 h-40 mb-6 rounded-full overflow-hidden border-4 border-accent/30 shadow-lg shrink-0">
-              <img :src="teamPejak" alt="Peják Panka" class="object-cover w-full h-full" />
+              <LazyImage :src="teamPejak" alt="Peják Panka" class-name="object-cover w-full h-full" />
             </div>
             <h3 class="font-bold text-xl text-gray-800 text-center mb-2">Peják Panka</h3>
             <p class="text-accent font-semibold text-center mb-4">Főnyugalom-mester & Nyugalom-navigátor</p>
@@ -66,7 +66,7 @@
           <!-- Team Member 2 - Székelyi Eszter -->
           <article class="bg-white/95 backdrop-blur rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 flex flex-col items-center w-full max-w-sm h-[400px]">
             <div class="w-40 h-40 mb-6 rounded-full overflow-hidden border-4 border-success/50 shadow-lg shrink-0">
-              <img :src="teamSzekelyi" alt="Székelyi Eszter" class="object-cover w-full h-full" />
+              <LazyImage :src="teamSzekelyi" alt="Székelyi Eszter" class-name="object-cover w-full h-full" />
             </div>
             <h3 class="font-bold text-xl text-gray-800 text-center mb-2">Székelyi Eszter</h3>
             <p class="text-success font-semibold text-center mb-4">Fókuszforgató & Stressz-reset mérnök</p>
@@ -78,7 +78,7 @@
           <!-- Team Member 3 - Polgár Eszter -->
           <article class="bg-white/95 backdrop-blur rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 flex flex-col items-center w-full max-w-sm h-[400px]">
             <div class="w-40 h-40 mb-6 rounded-full overflow-hidden border-4 border-secondary/50 shadow-lg shrink-0">
-              <img :src="teamPolgar" alt="Polgár Eszter" class="object-cover w-full h-full" />
+              <LazyImage :src="teamPolgar" alt="Polgár Eszter" class-name="object-cover w-full h-full" />
             </div>
             <h3 class="font-bold text-xl text-gray-800 text-center mb-2">Polgár Eszter</h3>
             <p class="text-secondary font-semibold text-center mb-4">Tudatos gondolatmester & Relaxációs kurátor</p>
@@ -90,7 +90,7 @@
           <!-- Team Member 4 - Érsek Alexandra -->
           <article class="bg-white/95 backdrop-blur rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 flex flex-col items-center w-full max-w-sm h-[400px]">
             <div class="w-40 h-40 mb-6 rounded-full overflow-hidden border-4 border-accent/30 shadow-lg shrink-0">
-              <img :src="teamErsek" alt="Érsek Alexandra" class="object-cover w-full h-full" />
+              <LazyImage :src="teamErsek" alt="Érsek Alexandra" class-name="object-cover w-full h-full" />
             </div>
             <h3 class="font-bold text-xl text-gray-800 text-center mb-2">Érsek Alexandra</h3>
             <p class="text-accent font-semibold text-center mb-4">Vizsgaidőszak túlélő coach</p>
@@ -102,7 +102,7 @@
           <!-- Team Member 5 - Czanik Csanád -->
           <article class="bg-white/95 backdrop-blur rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 flex flex-col items-center w-full max-w-sm h-[400px]">
             <div class="w-40 h-40 mb-6 rounded-full overflow-hidden border-4 border-success/50 shadow-lg shrink-0">
-              <img :src="teamCzanik" alt="Czanik Csanád" class="object-cover w-full h-full" />
+              <LazyImage :src="teamCzanik" alt="Czanik Csanád" class-name="object-cover w-full h-full" />
             </div>
             <h3 class="font-bold text-xl text-gray-800 text-center mb-2">Czanik Csanád</h3>
             <p class="text-success font-semibold text-center mb-4">Meditációs mérnök & Lélek-töltő specialist</p>
@@ -118,7 +118,7 @@
         <div class="bg-gradient-to-br from-accent/20 to-success/20 backdrop-blur rounded-3xl p-10 md:p-14 shadow-2xl border border-white/30">
           <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
             <div class="order-2 md:order-1 rounded-2xl overflow-hidden shadow-xl h-80 md:h-96">
-              <img :src="missionImg" alt="Mission" class="object-cover w-full h-full hover:scale-105 transition-transform duration-500" />
+              <LazyImage :src="missionImg" alt="Mission" class-name="object-cover w-full h-full hover:scale-105 transition-transform duration-500" />
             </div>
             <div class="order-1 md:order-2">
               <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-6">Küldetésünk</h2>
@@ -155,6 +155,7 @@
 
 <script setup lang="ts">
 import { placeholderFor } from '../utils/placeholders'
+import LazyImage from '../components/LazyImage.vue'
 
 const aboutImg1 = placeholderFor(0) as string
 const missionImg = placeholderFor(1) as string

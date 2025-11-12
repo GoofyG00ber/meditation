@@ -14,14 +14,14 @@
 
         <!-- Hero Image -->
         <div class="mb-12 rounded-2xl overflow-hidden shadow-lg">
-          <img :src="heroImage" alt="Földelés gyakorlat" class="w-full h-64 object-cover" />
+          <img :src="heroImage" alt="Földelés gyakorlat" class="w-full h-64 object-cover" loading="lazy" />
         </div>
 
         <!-- When to Use -->
         <div class="bg-emerald-100 border-l-4 border-emerald-500 rounded-lg p-6 mb-8">
           <h2 class="text-xl font-bold text-gray-800 mb-2">⚡ Mikor használd?</h2>
           <p class="text-gray-700 leading-relaxed">
-            Ha „szétcsúszottnak", bizonytalannak érzed magad, vagy elvesztetted a kapcsolatot a valósággal. 
+            Ha „szétcsúszottnak", bizonytalannak érzed magad, vagy elvesztetted a kapcsolatot a valósággal.
             Ez a gyakorlat visszakapcsol a jelenhez és a biztonság érzéséhez.
           </p>
         </div>
@@ -29,7 +29,7 @@
         <!-- Practice Steps -->
         <div class="bg-white rounded-2xl p-8 shadow-lg mb-8">
           <h2 class="text-2xl font-bold text-gray-800 mb-6">Hogyan csináld?</h2>
-          
+
           <div class="space-y-6">
             <div class="flex gap-4">
               <div class="shrink-0 w-12 h-12 bg-emerald-500 text-white rounded-full flex items-center justify-center font-bold text-lg">1</div>
@@ -44,7 +44,7 @@
               <div class="shrink-0 w-12 h-12 bg-emerald-500 text-white rounded-full flex items-center justify-center font-bold text-lg">2</div>
               <div class="flex-1">
                 <p class="text-gray-700 leading-relaxed">
-                  Képzeld el, hogy gyökerek nőnek a lábfejedből, mélyen a talajba. 
+                  Képzeld el, hogy gyökerek nőnek a lábfejedből, mélyen a talajba.
                   Ezek a gyökerek erősek, stabilak, és biztosan tartanak.
                 </p>
               </div>
@@ -54,7 +54,7 @@
               <div class="shrink-0 w-12 h-12 bg-emerald-500 text-white rounded-full flex items-center justify-center font-bold text-lg">3</div>
               <div class="flex-1">
                 <p class="text-gray-700 leading-relaxed">
-                  Minden kilégzéssel engedd el a feszültséget a testedből a föld felé. 
+                  Minden kilégzéssel engedd el a feszültséget a testedből a föld felé.
                   Képzeld el, ahogy a föld elnyelni és semlegesíti ezt az energiát.
                 </p>
               </div>
@@ -78,7 +78,7 @@
               <div class="shrink-0 w-12 h-12 bg-emerald-500 text-white rounded-full flex items-center justify-center font-bold text-lg">5</div>
               <div class="flex-1">
                 <p class="text-gray-700 leading-relaxed">
-                  Ismételd meg ezt a vizualizációt 5-10 lélegzetvételen keresztül, 
+                  Ismételd meg ezt a vizualizációt 5-10 lélegzetvételen keresztül,
                   amíg érzed, hogy visszanyerted a belső egyensúlyodat.
                 </p>
               </div>
@@ -112,12 +112,12 @@
         <div class="bg-white rounded-2xl p-8 shadow-lg mb-8">
           <h2 class="text-2xl font-bold text-gray-800 mb-4">🔬 Miért működik?</h2>
           <p class="text-gray-700 leading-relaxed mb-4">
-            Ez a gyakorlat szimbolikus és fiziológiai földelést is biztosít – 
+            Ez a gyakorlat szimbolikus és fiziológiai földelést is biztosít –
             segít újrakapcsolni a testedet a valósághoz, és megszüntetni a belső „szétesettség" érzését.
           </p>
           <p class="text-gray-700 leading-relaxed">
-            A vizualizáció és a lábfejre való tudatos figyelem aktiválja a test-tudatot, 
-            ami csökkenti a disszociációt (elszakadás érzését) és növeli a biztonságérzetet. 
+            A vizualizáció és a lábfejre való tudatos figyelem aktiválja a test-tudatot,
+            ami csökkenti a disszociációt (elszakadás érzését) és növeli a biztonságérzetet.
             A mély légzés eközben stabilizálja az idegrendszert.
           </p>
         </div>
@@ -155,13 +155,13 @@
 
         <!-- Back Button -->
         <div class="mt-8 flex justify-center gap-4">
-          <router-link 
-            to="/sessions" 
+          <router-link
+            to="/sessions"
             class="inline-block bg-emerald-500 hover:bg-emerald-600 text-white font-semibold px-8 py-3 rounded-lg transition-colors"
           >
             ← Vissza a gyakorlatokhoz
           </router-link>
-          
+
           <button
             v-if="authStore.isAuthenticated && !completed"
             @click="() => completeExercise()"
@@ -171,7 +171,7 @@
             {{ completing ? 'Mentés...' : 'Gyakorlat befejezve ✓' }}
           </button>
         </div>
-        
+
         <!-- Completion Message -->
         <div v-if="completed" class="mt-6 bg-green-50 border-l-4 border-green-500 rounded-lg p-6 text-center">
           <p class="text-lg font-semibold text-green-800">🎉 Gratulálunk! Befejezted a gyakorlatot!</p>
@@ -179,11 +179,11 @@
         </div>
       </div>
     </div>
-    
+
     <!-- Badge Modal -->
-    <BadgeModal 
+    <BadgeModal
       v-if="newBadge"
-      :show="showBadgeModal" 
+      :show="showBadgeModal"
       :badge="newBadge"
       @close="closeBadgeModal"
     />

@@ -14,15 +14,15 @@
 
         <!-- Hero Image -->
         <div class="mb-12 rounded-2xl overflow-hidden shadow-lg">
-          <img :src="heroImage" alt="Légzés és zongora" class="w-full h-64 object-cover" />
+          <img :src="heroImage" alt="Légzés és zongora" class="w-full h-64 object-cover" loading="lazy" />
         </div>
 
         <!-- Introduction -->
         <div class="bg-white rounded-2xl p-8 shadow-lg mb-8">
           <h2 class="text-2xl font-bold text-gray-800 mb-4">Cél: Idegrendszeri megnyugvás</h2>
           <p class="text-gray-700 leading-relaxed mb-4">
-            Ez a gyakorlat kiegyenlíti az idegrendszeri aktivitást, csökkenti a felesleges belső zajt, 
-            és segít visszatérni a tanulási zónába. Már 2 perc is elég ahhoz, hogy a szívritmus és a légzés szinkronba kerüljön, 
+            Ez a gyakorlat kiegyenlíti az idegrendszeri aktivitást, csökkenti a felesleges belső zajt,
+            és segít visszatérni a tanulási zónába. Már 2 perc is elég ahhoz, hogy a szívritmus és a légzés szinkronba kerüljön,
             ami fokozza az agyi oxigénellátást és a fókuszt.
           </p>
         </div>
@@ -30,7 +30,7 @@
         <!-- Practice Steps -->
         <div class="bg-white rounded-2xl p-8 shadow-lg mb-8">
           <h2 class="text-2xl font-bold text-gray-800 mb-6">Hogyan csináld?</h2>
-          
+
           <div class="space-y-6">
             <div class="flex gap-4">
               <div class="shrink-0 w-12 h-12 bg-teal-500 text-white rounded-full flex items-center justify-center font-bold text-lg">1</div>
@@ -82,28 +82,28 @@
         <!-- Timer -->
         <div class="bg-white rounded-2xl p-8 shadow-lg mb-8 text-center">
           <h2 class="text-2xl font-bold text-gray-800 mb-6">Gyakorlat időzítő</h2>
-          
+
           <div class="mb-6">
             <div class="text-6xl font-bold text-teal-600 mb-4">{{ displayTime }}</div>
             <div class="text-gray-600">{{ statusText }}</div>
           </div>
 
           <div class="flex justify-center gap-4">
-            <button 
-              @click="startTimer" 
+            <button
+              @click="startTimer"
               v-if="!isRunning"
               class="bg-teal-500 hover:bg-teal-600 text-white font-semibold px-8 py-3 rounded-lg transition-colors"
             >
               Indítás
             </button>
-            <button 
-              @click="pauseTimer" 
+            <button
+              @click="pauseTimer"
               v-if="isRunning"
               class="bg-amber-500 hover:bg-amber-600 text-white font-semibold px-8 py-3 rounded-lg transition-colors"
             >
               Szünet
             </button>
-            <button 
+            <button
               @click="resetTimer"
               class="bg-gray-500 hover:bg-gray-600 text-white font-semibold px-8 py-3 rounded-lg transition-colors"
             >
@@ -141,13 +141,13 @@
 
         <!-- Back Button -->
         <div class="mt-8 flex justify-center gap-4">
-          <router-link 
-            to="/sessions" 
+          <router-link
+            to="/sessions"
             class="inline-block bg-teal-500 hover:bg-teal-600 text-white font-semibold px-8 py-3 rounded-lg transition-colors"
           >
             ← Vissza a gyakorlatokhoz
           </router-link>
-          
+
           <button
             v-if="authStore.isAuthenticated && !completed"
             @click="() => completeExercise()"
@@ -157,7 +157,7 @@
             {{ completing ? 'Mentés...' : 'Gyakorlat befejezve ✓' }}
           </button>
         </div>
-        
+
         <!-- Completion Message -->
         <div v-if="completed" class="mt-6 bg-green-50 border-l-4 border-green-500 rounded-lg p-6 text-center">
           <p class="text-lg font-semibold text-green-800">🎉 Gratulálunk! Befejezted a gyakorlatot!</p>
@@ -165,11 +165,11 @@
         </div>
       </div>
     </div>
-    
+
     <!-- Badge Modal -->
-    <BadgeModal 
+    <BadgeModal
       v-if="newBadge"
-      :show="showBadgeModal" 
+      :show="showBadgeModal"
       :badge="newBadge"
       @close="closeBadgeModal"
     />
@@ -218,7 +218,7 @@ function startTimer() {
   if (remainingSeconds.value === 0) {
     remainingSeconds.value = totalSeconds.value
   }
-  
+
   isRunning.value = true
   intervalId = window.setInterval(() => {
     if (remainingSeconds.value > 0) {

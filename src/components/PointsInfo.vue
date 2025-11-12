@@ -9,8 +9,8 @@
           <p class="text-gray-700 mb-3">
             Jelentkezz be vagy regisztrálj, hogy pontokat gyűjthess, jelvényeket szerezz, és nyomon kövesd a fejlődésed!
           </p>
-          <router-link 
-            to="/login" 
+          <router-link
+            to="/login"
             class="inline-block bg-amber-500 hover:bg-amber-600 text-white font-semibold px-6 py-2 rounded-lg transition-colors"
           >
             Bejelentkezés →
@@ -37,7 +37,7 @@
           <p v-else class="text-gray-700">
             Szerezz pontokat a gyakorlat elvégzésével, lépj szintet, és gyűjts jelvényeket!
           </p>
-          
+
           <div v-if="isFirstTry" class="mt-2 flex items-center gap-2 text-sm font-semibold text-green-600">
             <span>🎁</span>
             <span>+20 bónusz pont az első kipróbálásért!</span>

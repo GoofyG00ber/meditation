@@ -14,16 +14,16 @@
 
         <!-- Hero Image -->
         <div class="mb-12 rounded-2xl overflow-hidden shadow-2xl">
-          <img :src="heroImage" alt="Esti relaxáció" class="w-full h-64 object-cover" />
+          <img :src="heroImage" alt="Esti relaxáció" class="w-full h-64 object-cover" loading="lazy" />
         </div>
 
         <!-- Introduction -->
         <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 shadow-lg mb-8">
           <h2 class="text-2xl font-bold mb-4">Cél</h2>
           <p class="text-gray-200 leading-relaxed">
-            Az idegrendszer „lekapcsolása", alvás előtti mély nyugalom elérése. 
-            Ez a technika lelassítja a szívverést, növeli a szívritmus-variabilitást, 
-            és az oxigén-szén-dioxid arány optimalizálásával az agyat „pihenés" üzemmódba kapcsolja. 
+            Az idegrendszer „lekapcsolása", alvás előtti mély nyugalom elérése.
+            Ez a technika lelassítja a szívverést, növeli a szívritmus-variabilitást,
+            és az oxigén-szén-dioxid arány optimalizálásával az agyat „pihenés" üzemmódba kapcsolja.
             Klinikailag is bizonyított, hogy csökkenti a kortizolszintet és elősegíti a gyorsabb elalvást.
           </p>
         </div>
@@ -31,7 +31,7 @@
         <!-- Practice Steps -->
         <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 shadow-lg mb-8">
           <h2 class="text-2xl font-bold mb-6">Hogyan csináld?</h2>
-          
+
           <div class="space-y-6">
             <div class="flex gap-4">
               <div class="shrink-0 w-12 h-12 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold text-lg">1</div>
@@ -58,7 +58,7 @@
               <div class="flex-1">
                 <h3 class="text-xl font-semibold mb-2">Kilégzés – 8 másodperc</h3>
                 <p class="text-gray-200 leading-relaxed">
-                  Fújd ki lassan 8 másodperc alatt a szádon keresztül, mintha egy gyertyát fújnál el. 
+                  Fújd ki lassan 8 másodperc alatt a szádon keresztül, mintha egy gyertyát fújnál el.
                   Engedd, hogy minden feszültség távozzon.
                 </p>
               </div>
@@ -79,7 +79,7 @@
         <!-- Interactive Timer -->
         <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 shadow-lg mb-8 text-center">
           <h2 class="text-2xl font-bold mb-6">Interaktív légzésvezetés</h2>
-          
+
           <div class="mb-8">
             <div class="text-7xl font-bold mb-4" :class="phaseColor">{{ displayTime }}</div>
             <div class="text-2xl font-semibold text-gray-300 mb-2">{{ phaseText }}</div>
@@ -87,21 +87,21 @@
           </div>
 
           <div class="flex justify-center gap-4">
-            <button 
-              @click="startExercise" 
+            <button
+              @click="startExercise"
               v-if="!isRunning"
               class="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-8 py-3 rounded-lg transition-colors"
             >
               {{ cycleCount === 0 ? 'Indítás' : 'Folytatás' }}
             </button>
-            <button 
-              @click="pauseExercise" 
+            <button
+              @click="pauseExercise"
               v-if="isRunning"
               class="bg-amber-500 hover:bg-amber-600 text-white font-semibold px-8 py-3 rounded-lg transition-colors"
             >
               Szünet
             </button>
-            <button 
+            <button
               @click="resetExercise"
               class="bg-gray-500 hover:bg-gray-600 text-white font-semibold px-8 py-3 rounded-lg transition-colors"
             >
@@ -144,13 +144,13 @@
 
         <!-- Back Button -->
         <div class="mt-8 flex justify-center gap-4">
-          <router-link 
-            to="/sessions" 
+          <router-link
+            to="/sessions"
             class="inline-block bg-blue-500 hover:bg-blue-600 text-white font-semibold px-8 py-3 rounded-lg transition-colors"
           >
             ← Vissza a gyakorlatokhoz
           </router-link>
-          
+
           <button
             v-if="authStore.isAuthenticated && !exerciseCompleted"
             @click="() => completeExercise()"
@@ -160,7 +160,7 @@
             {{ completing ? 'Mentés...' : 'Gyakorlat befejezve ✓' }}
           </button>
         </div>
-        
+
         <!-- Completion Message -->
         <div v-if="exerciseCompleted" class="mt-6 bg-green-50 border-l-4 border-green-500 rounded-lg p-6 text-center">
           <p class="text-lg font-semibold text-green-800">🎉 Gratulálunk! Befejezted a gyakorlatot!</p>
@@ -168,11 +168,11 @@
         </div>
       </div>
     </div>
-    
+
     <!-- Badge Modal -->
-    <BadgeModal 
+    <BadgeModal
       v-if="newBadge"
-      :show="showBadgeModal" 
+      :show="showBadgeModal"
       :badge="newBadge"
       @close="closeBadgeModal"
     />
@@ -230,28 +230,28 @@ function startExercise() {
   if (completed.value) {
     resetExercise()
   }
-  
+
   isRunning.value = true
   timer.value = phaseDurations[phase.value] || 4
-  
+
   intervalId = window.setInterval(() => {
     timer.value--
-    
+
     if (timer.value <= 0) {
       // Move to next phase
       phase.value = (phase.value + 1) % 3
-      
+
       // If we completed exhale, increment cycle
       if (phase.value === 0) {
         cycleCount.value++
-        
+
         if (cycleCount.value >= 5) {
           completed.value = true
           pauseExercise()
           return
         }
       }
-      
+
       timer.value = phaseDurations[phase.value] || 4
     }
   }, 1000)

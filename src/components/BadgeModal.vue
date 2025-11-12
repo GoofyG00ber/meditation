@@ -3,13 +3,13 @@
     <Transition name="modal">
       <div v-if="show" class="fixed inset-0 z-50 flex items-center justify-center p-4" @click="close">
         <div class="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
-        
-        <div 
+
+        <div
           class="relative bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 transform"
           @click.stop
         >
           <!-- Close button -->
-          <button 
+          <button
             @click="close"
             class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors"
           >
@@ -23,13 +23,13 @@
             <div class="mb-4">
               <div class="text-8xl animate-bounce">{{ badge.emoji }}</div>
             </div>
-            
+
             <h2 class="text-3xl font-bold text-gray-800 mb-2">Új Jelvény!</h2>
             <h3 class="text-2xl font-semibold text-indigo-600 mb-3">{{ badge.name }}</h3>
             <p class="text-gray-600 text-lg mb-6">{{ badge.description }}</p>
-            
+
             <div class="flex justify-center gap-3">
-              <button 
+              <button
                 @click="close"
                 class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-8 py-3 rounded-lg transition-colors"
               >

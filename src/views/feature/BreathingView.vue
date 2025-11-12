@@ -7,7 +7,7 @@
 
         <!-- Points Info / Login Reminder -->
         <div class="mt-6">
-          <PointsInfo 
+          <PointsInfo
             exercise-type="breathing"
             points-type="time"
           />
@@ -57,11 +57,11 @@
         </div>
       </div>
     </div>
-    
+
     <!-- Badge Modal -->
-    <BadgeModal 
+    <BadgeModal
       v-if="newBadge"
-      :show="showBadgeModal" 
+      :show="showBadgeModal"
       :badge="newBadge"
       @close="showBadgeModal = false"
     />
@@ -143,16 +143,16 @@ function stopCycle() {
       const basePoints = calculateBreathingPoints(cyclesCompleted.value)
       const isFirstTry = !authStore.currentUser?.featuresTried?.includes('breathing')
       const totalPoints = basePoints + (isFirstTry ? 20 : 0)
-      
+
       pointsEarned.value = totalPoints
-      
+
       authStore.addPoints(totalPoints, 'breathing').then(result => {
         if (result.success) {
           showPointsNotification.value = true
           setTimeout(() => {
             showPointsNotification.value = false
           }, 5000)
-          
+
           // Show badge modal if new badges earned
           if (result.newBadges && result.newBadges.length > 0) {
             const badge = result.newBadges[0]

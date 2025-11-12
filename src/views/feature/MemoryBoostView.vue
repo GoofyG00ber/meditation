@@ -14,16 +14,16 @@
 
         <!-- Hero Image -->
         <div class="mb-12 rounded-2xl overflow-hidden shadow-lg">
-          <img :src="heroImage" alt="Memória erősítés" class="w-full h-64 object-cover" />
+          <img :src="heroImage" alt="Memória erősítés" class="w-full h-64 object-cover" loading="lazy" />
         </div>
 
         <!-- Introduction -->
         <div class="bg-white rounded-2xl p-8 shadow-lg mb-8">
           <h2 class="text-2xl font-bold text-gray-800 mb-4">Cél</h2>
           <p class="text-gray-700 leading-relaxed mb-4">
-            Az információk rögzítése, hosszú távú memória támogatása. 
-            Ez az egyszerű gyakorlat az emlékezés-konzoláció mechanizmusát aktiválja: 
-            a rövid tudatos visszaidézés erősíti a hippokampusz-kapcsolatokat, 
+            Az információk rögzítése, hosszú távú memória támogatása.
+            Ez az egyszerű gyakorlat az emlékezés-konzoláció mechanizmusát aktiválja:
+            a rövid tudatos visszaidézés erősíti a hippokampusz-kapcsolatokat,
             így a megtanult információ stabilabban rögzül.
           </p>
         </div>
@@ -31,7 +31,7 @@
         <!-- Practice Steps -->
         <div class="bg-white rounded-2xl p-8 shadow-lg mb-8">
           <h2 class="text-2xl font-bold text-gray-800 mb-6">Hogyan csináld?</h2>
-          
+
           <div class="space-y-6">
             <div class="flex gap-4">
               <div class="shrink-0 w-12 h-12 bg-purple-500 text-white rounded-full flex items-center justify-center font-bold text-lg">1</div>
@@ -80,8 +80,8 @@
         <div class="bg-white rounded-2xl p-8 shadow-lg mb-8">
           <h2 class="text-2xl font-bold text-gray-800 mb-4">🔬 Tudományos háttér</h2>
           <p class="text-gray-700 leading-relaxed">
-            Ez az egyszerű gyakorlat az <span class="font-semibold">emlékezés-konzoláció mechanizmusát</span> aktiválja: 
-            a rövid tudatos visszaidézés erősíti a hippokampusz-kapcsolatokat, így a megtanult információ stabilabban rögzül. 
+            Ez az egyszerű gyakorlat az <span class="font-semibold">emlékezés-konzoláció mechanizmusát</span> aktiválja:
+            a rövid tudatos visszaidézés erősíti a hippokampusz-kapcsolatokat, így a megtanult információ stabilabban rögzül.
             A gyakorlat különösen hatékony, ha közvetlenül a tanulás után végzed el.
           </p>
         </div>
@@ -117,20 +117,20 @@
         <div class="bg-amber-50 border-l-4 border-amber-500 rounded-lg p-6 mb-8">
           <h3 class="text-lg font-bold text-gray-800 mb-2">💡 Tipp a hatékony alkalmazáshoz</h3>
           <p class="text-gray-700">
-            A legjobb eredményért gyakorold ezt minden 25-30 perces tanulási szakasz után. 
+            A legjobb eredményért gyakorold ezt minden 25-30 perces tanulási szakasz után.
             Így az információk jobban beépülnek a hosszú távú memóriába, és könnyebben előhívhatók lesznek vizsgák vagy prezentációk során.
           </p>
         </div>
 
         <!-- Back Button -->
         <div class="mt-8 flex justify-center gap-4">
-          <router-link 
-            to="/sessions" 
+          <router-link
+            to="/sessions"
             class="inline-block bg-purple-500 hover:bg-purple-600 text-white font-semibold px-8 py-3 rounded-lg transition-colors"
           >
             ← Vissza a gyakorlatokhoz
           </router-link>
-          
+
           <button
             v-if="authStore.isAuthenticated && !completed"
             @click="() => completeExercise()"
@@ -140,7 +140,7 @@
             {{ completing ? 'Mentés...' : 'Gyakorlat befejezve ✓' }}
           </button>
         </div>
-        
+
         <!-- Completion Message -->
         <div v-if="completed" class="mt-6 bg-green-50 border-l-4 border-green-500 rounded-lg p-6 text-center">
           <p class="text-lg font-semibold text-green-800">🎉 Gratulálunk! Befejezted a gyakorlatot!</p>
@@ -148,11 +148,11 @@
         </div>
       </div>
     </div>
-    
+
     <!-- Badge Modal -->
-    <BadgeModal 
+    <BadgeModal
       v-if="newBadge"
-      :show="showBadgeModal" 
+      :show="showBadgeModal"
       :badge="newBadge"
       @close="closeBadgeModal"
     />

@@ -14,7 +14,7 @@
 
         <!-- Hero Image -->
         <div class="mb-12 rounded-2xl overflow-hidden shadow-lg">
-          <img :src="heroImage" alt="Gyors stresszoldás" class="w-full h-64 object-cover" />
+          <img :src="heroImage" alt="Gyors stresszoldás" class="w-full h-64 object-cover" loading="lazy" />
         </div>
 
         <!-- When to Use -->
@@ -28,7 +28,7 @@
         <!-- Practice Steps -->
         <div class="bg-white rounded-2xl p-8 shadow-lg mb-8">
           <h2 class="text-2xl font-bold text-gray-800 mb-6">Hogyan csináld?</h2>
-          
+
           <div class="space-y-6">
             <div class="flex gap-4">
               <div class="shrink-0 w-12 h-12 bg-red-500 text-white rounded-full flex items-center justify-center font-bold text-lg">1</div>
@@ -77,8 +77,8 @@
         <div class="bg-white rounded-2xl p-8 shadow-lg mb-8">
           <h2 class="text-2xl font-bold text-gray-800 mb-4">🔬 Miért működik?</h2>
           <p class="text-gray-700 leading-relaxed">
-            Ez a gyakorlat megszakítja a stresszreakció láncolatát, és segít, hogy az agy visszaváltson a racionális, nyugodt üzemmódba. 
-            A mély légzés aktiválja a paraszimpatikus idegrendszert, amely csökkenti a kortizol és adrenalin szintet, 
+            Ez a gyakorlat megszakítja a stresszreakció láncolatát, és segít, hogy az agy visszaváltson a racionális, nyugodt üzemmódba.
+            A mély légzés aktiválja a paraszimpatikus idegrendszert, amely csökkenti a kortizol és adrenalin szintet,
             így a tested fizikailag is nyugodtabb állapotba kerül.
           </p>
         </div>
@@ -112,13 +112,13 @@
 
         <!-- Back Button -->
         <div class="mt-8 flex justify-center gap-4">
-          <router-link 
-            to="/sessions" 
+          <router-link
+            to="/sessions"
             class="inline-block bg-red-500 hover:bg-red-600 text-white font-semibold px-8 py-3 rounded-lg transition-colors"
           >
             ← Vissza a gyakorlatokhoz
           </router-link>
-          
+
           <button
             v-if="authStore.isAuthenticated && !completed"
             @click="() => completeExercise()"
@@ -128,7 +128,7 @@
             {{ completing ? 'Mentés...' : 'Gyakorlat befejezve ✓' }}
           </button>
         </div>
-        
+
         <!-- Completion Message -->
         <div v-if="completed" class="mt-6 bg-green-50 border-l-4 border-green-500 rounded-lg p-6 text-center">
           <p class="text-lg font-semibold text-green-800">🎉 Gratulálunk! Befejezted a gyakorlatot!</p>
@@ -136,11 +136,11 @@
         </div>
       </div>
     </div>
-    
+
     <!-- Badge Modal -->
-    <BadgeModal 
+    <BadgeModal
       v-if="newBadge"
-      :show="showBadgeModal" 
+      :show="showBadgeModal"
       :badge="newBadge"
       @close="closeBadgeModal"
     />

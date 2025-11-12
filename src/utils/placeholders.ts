@@ -22,7 +22,6 @@ export function nextPlaceholder() {
   return placeholders[randomIndex]
 }
 
-export function placeholderFor(_index: number) {
-  const randomIndex = Math.floor(Math.random() * placeholders.length)
-  return placeholders[randomIndex]
+export function placeholderFor(index: number) {
+  return placeholders[index % placeholders.length]
 }
