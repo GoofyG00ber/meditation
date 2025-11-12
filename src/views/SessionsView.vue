@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-accent -mt-28 pt-28">
+  <div class="min-h-screen bg-accent md:-mt-28 pt-28">
     <div class="container mx-auto px-6 py-12">
       <div class="text-center mb-10">
         <h1 class="text-3xl md:text-4xl font-bold text-gray-800">Meditációs technikák</h1>

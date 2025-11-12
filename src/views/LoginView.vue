@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-linear-to-br from-primary to-secondary -mt-28 pt-28">
+  <div class="min-h-screen bg-linear-to-br from-primary to-secondary md:-mt-28 pt-28">
     <div class="container mx-auto px-6 py-12">
       <div class="max-w-md mx-auto bg-white rounded-2xl p-8 shadow-lg">
         <h1 class="text-3xl font-bold text-gray-800 mb-6 text-center">Bejelentkezés</h1>

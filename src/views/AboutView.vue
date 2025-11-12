@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen flex flex-col bg-gradient-to-br from-primary via-secondary to-success -mt-28">
+  <div class="min-h-screen flex flex-col bg-gradient-to-br from-primary via-secondary to-success md:-mt-28">
     <!-- Hero Header -->
     <header class="bg-gradient-to-r from-accent/40 to-success/40 backdrop-blur-sm py-6 pt-32 border-b border-secondary/30">
       <div class="container mx-auto px-6">
@@ -50,64 +50,64 @@
           </p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <!-- Team Member 1 -->
-          <article class="bg-white/95 backdrop-blur rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
-            <div class="w-32 h-32 mx-auto mb-6 rounded-full overflow-hidden border-4 border-accent/30 shadow-lg">
-              <img :src="teamImg1" alt="Team member" class="object-cover w-full h-full" />
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center justify-center">
+          <!-- Team Member 1 - Peják Panka -->
+          <article class="bg-white/95 backdrop-blur rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 flex flex-col items-center w-full max-w-sm h-[400px]">
+            <div class="w-40 h-40 mb-6 rounded-full overflow-hidden border-4 border-accent/30 shadow-lg shrink-0">
+              <img :src="teamPejak" alt="Peják Panka" class="object-cover w-full h-full" />
             </div>
-            <h3 class="font-bold text-xl text-gray-800 text-center mb-2">XY</h3>
+            <h3 class="font-bold text-xl text-gray-800 text-center mb-2">Peják Panka</h3>
             <p class="text-accent font-semibold text-center mb-4">Főnyugalom-mester & Nyugalom-navigátor</p>
-            <p class="text-gray-700 text-center italic">
+            <p class="text-gray-700 text-center italic flex-1 flex items-center">
               „A gyógyítás nem csak a betegekről, hanem a gyógyítókról is szól."
             </p>
           </article>
 
-          <!-- Team Member 2 -->
-          <article class="bg-white/95 backdrop-blur rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
-            <div class="w-32 h-32 mx-auto mb-6 rounded-full overflow-hidden border-4 border-success/50 shadow-lg">
-              <img :src="teamImg2" alt="Team member" class="object-cover w-full h-full" />
+          <!-- Team Member 2 - Székelyi Eszter -->
+          <article class="bg-white/95 backdrop-blur rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 flex flex-col items-center w-full max-w-sm h-[400px]">
+            <div class="w-40 h-40 mb-6 rounded-full overflow-hidden border-4 border-success/50 shadow-lg shrink-0">
+              <img :src="teamSzekelyi" alt="Székelyi Eszter" class="object-cover w-full h-full" />
             </div>
-            <h3 class="font-bold text-xl text-gray-800 text-center mb-2">XY</h3>
+            <h3 class="font-bold text-xl text-gray-800 text-center mb-2">Székelyi Eszter</h3>
             <p class="text-success font-semibold text-center mb-4">Fókuszforgató & Stressz-reset mérnök</p>
-            <p class="text-gray-700 text-center italic">
+            <p class="text-gray-700 text-center italic flex-1 flex items-center">
               „A célom, hogy a nyugalom és tudatosság elérhető legyen – egyetlen koppintással."
             </p>
           </article>
 
-          <!-- Team Member 3 -->
-          <article class="bg-white/95 backdrop-blur rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
-            <div class="w-32 h-32 mx-auto mb-6 rounded-full overflow-hidden border-4 border-secondary/50 shadow-lg">
-              <img :src="teamImg3" alt="Team member" class="object-cover w-full h-full" />
+          <!-- Team Member 3 - Polgár Eszter -->
+          <article class="bg-white/95 backdrop-blur rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 flex flex-col items-center w-full max-w-sm h-[400px]">
+            <div class="w-40 h-40 mb-6 rounded-full overflow-hidden border-4 border-secondary/50 shadow-lg shrink-0">
+              <img :src="teamPolgar" alt="Polgár Eszter" class="object-cover w-full h-full" />
             </div>
-            <h3 class="font-bold text-xl text-gray-800 text-center mb-2">XY</h3>
+            <h3 class="font-bold text-xl text-gray-800 text-center mb-2">Polgár Eszter</h3>
             <p class="text-secondary font-semibold text-center mb-4">Tudatos gondolatmester & Relaxációs kurátor</p>
-            <p class="text-gray-700 text-center italic">
+            <p class="text-gray-700 text-center italic flex-1 flex items-center">
               „Az InnerBloom mögött tudomány, törődés és emberismeret áll."
             </p>
           </article>
 
-          <!-- Team Member 4 -->
-          <article class="bg-white/95 backdrop-blur rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
-            <div class="w-32 h-32 mx-auto mb-6 rounded-full overflow-hidden border-4 border-accent/30 shadow-lg">
-              <img :src="teamImg1" alt="Team member" class="object-cover w-full h-full" />
+          <!-- Team Member 4 - Érsek Alexandra -->
+          <article class="bg-white/95 backdrop-blur rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 flex flex-col items-center w-full max-w-sm h-[400px]">
+            <div class="w-40 h-40 mb-6 rounded-full overflow-hidden border-4 border-accent/30 shadow-lg shrink-0">
+              <img :src="teamErsek" alt="Érsek Alexandra" class="object-cover w-full h-full" />
             </div>
-            <h3 class="font-bold text-xl text-gray-800 text-center mb-2">XY</h3>
+            <h3 class="font-bold text-xl text-gray-800 text-center mb-2">Érsek Alexandra</h3>
             <p class="text-accent font-semibold text-center mb-4">Vizsgaidőszak túlélő coach</p>
-            <p class="text-gray-700 text-center italic">
+            <p class="text-gray-700 text-center italic flex-1 flex items-center">
               „Segítek megtalálni a csendet, még a legkeményebb tanulós napokon is."
             </p>
           </article>
 
-          <!-- Team Member 5 -->
-          <article class="bg-white/95 backdrop-blur rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
-            <div class="w-32 h-32 mx-auto mb-6 rounded-full overflow-hidden border-4 border-success/50 shadow-lg">
-              <img :src="teamImg2" alt="Team member" class="object-cover w-full h-full" />
+          <!-- Team Member 5 - Czanik Csanád -->
+          <article class="bg-white/95 backdrop-blur rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 flex flex-col items-center w-full max-w-sm h-[400px]">
+            <div class="w-40 h-40 mb-6 rounded-full overflow-hidden border-4 border-success/50 shadow-lg shrink-0">
+              <img :src="teamCzanik" alt="Czanik Csanád" class="object-cover w-full h-full" />
             </div>
-            <h3 class="font-bold text-xl text-gray-800 text-center mb-2">XY</h3>
+            <h3 class="font-bold text-xl text-gray-800 text-center mb-2">Czanik Csanád</h3>
             <p class="text-success font-semibold text-center mb-4">Meditációs mérnök & Lélek-töltő specialist</p>
-            <p class="text-gray-700 text-center italic">
-              „Minden gyakorlattal egy apró lépést teszünk a belső béke felé."
+            <p class="text-gray-700 text-center italic flex-1 flex items-center">
+              „Én csak ide feljárok :)"
             </p>
           </article>
         </div>
@@ -157,8 +157,12 @@
 import { placeholderFor } from '../utils/placeholders'
 
 const aboutImg1 = placeholderFor(0) as string
-const teamImg1 = placeholderFor(1) as string
-const teamImg2 = placeholderFor(2) as string
-const teamImg3 = placeholderFor(0) as string
 const missionImg = placeholderFor(1) as string
+
+// Team member photos
+const teamPejak = '/ppl/Peják Panka.jpg'
+const teamSzekelyi = '/ppl/Székelyi Eszter.jpg'
+const teamPolgar = '/ppl/Polgár Eszter.jpg'
+const teamErsek = '/ppl/Érsek Alexandra.jpg'
+const teamCzanik = '/ppl/Czanik Csanád.JPG'
 </script>

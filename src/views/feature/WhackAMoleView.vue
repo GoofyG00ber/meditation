@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-primary to-secondary -mt-28 pt-28">
+  <div class="min-h-screen bg-gradient-to-br from-primary to-secondary md:-mt-28 pt-28">
     <div class="container mx-auto px-4 py-2">
       <div class="max-w-3xl mx-auto">
         <!-- Header -->
@@ -7,6 +7,9 @@
           <h1 class="text-xl md:text-2xl font-bold text-gray-800 mb-1">Stressz-levezetés játék</h1>
           <p class="text-gray-700 text-xs">Ütögesd ki a stresszt! Töltsd fel a képet, ami a stresszedet jelképezi, és csapd le!</p>
         </div>
+
+        <!-- Points Info -->
+        <PointsInfo exercise-type="whack_a_mole" points-type="performance" class="mb-2" />
 
         <!-- Game Stats & Upload -->
         <div class="bg-white/95 backdrop-blur rounded-2xl p-3 mb-3 shadow-lg">
@@ -173,6 +176,14 @@
         </div>
       </div>
     </div>
+
+    <!-- Badge Modal -->
+    <BadgeModal 
+      v-if="newBadge"
+      :show="showBadgeModal" 
+      :badge="newBadge"
+      @close="closeBadgeModal"
+    />
   </div>
 </template>
 
@@ -180,6 +191,9 @@
 import { ref, onUnmounted } from 'vue'
 import { useAuthStore } from '../../stores/auth'
 import { calculateWhackAMolePoints } from '../../utils/points'
+import PointsInfo from '../../components/PointsInfo.vue'
+import BadgeModal from '../../components/BadgeModal.vue'
+import type { Badge } from '../../utils/points'
 
 const authStore = useAuthStore()
 const score = ref(0)
@@ -192,6 +206,8 @@ const uploadedImage = ref<string | null>(null)
 const showGuestNotification = ref(false)
 const pointsEarned = ref(0)
 const showPointsNotification = ref(false)
+const showBadgeModal = ref(false)
+const newBadge = ref<Badge | null>(null)
 
 let gameInterval: number | null = null
 let moleInterval: number | null = null
@@ -261,7 +277,7 @@ const pauseGame = () => {
   if (moleInterval !== null) window.clearInterval(moleInterval)
 }
 
-const endGame = () => {
+const endGame = async () => {
   gameActive.value = false
   if (gameInterval !== null) window.clearInterval(gameInterval)
   if (moleInterval !== null) window.clearInterval(moleInterval)
@@ -275,11 +291,16 @@ const endGame = () => {
   if (authStore.isAuthenticated && score.value > 0) {
     const points = calculateWhackAMolePoints(score.value)
     pointsEarned.value = points
-    authStore.addPoints(points)
-    authStore.addAchievement('stress_buster')
-    if (score.value >= 20) {
-      authStore.addAchievement('whack_champion')
+    
+    const result = await authStore.addPoints(points, 'whack_a_mole')
+    if (result.success && result.newBadges.length > 0) {
+      const badge = result.newBadges[0]
+      if (badge) {
+        newBadge.value = badge
+        showBadgeModal.value = true
+      }
     }
+    
     showPointsNotification.value = true
     setTimeout(() => {
       showPointsNotification.value = false
@@ -291,6 +312,10 @@ const endGame = () => {
       showGuestNotification.value = false
     }, 5000)
   }
+}
+
+const closeBadgeModal = () => {
+  showBadgeModal.value = false
 }
 
 const resetGame = () => {

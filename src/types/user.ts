@@ -7,6 +7,9 @@ export interface User {
   level: number
   createdAt: string
   achievements: string[]
+  badges?: string[]
+  exerciseCounts?: Record<string, number>
+  featuresTried?: string[]
 }
 
 export interface UserProfile {
@@ -17,6 +20,9 @@ export interface UserProfile {
   level: number
   createdAt: string
   achievements: string[]
+  badges?: string[]
+  exerciseCounts?: Record<string, number>
+  featuresTried?: string[]
 }
 
 export interface LoginCredentials {

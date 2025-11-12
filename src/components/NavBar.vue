@@ -57,23 +57,22 @@
     <!-- Mobile Hamburger Button -->
     <button
       @click="toggleMobileMenu"
-      class="md:hidden z-50 w-10 h-10 relative focus:outline-none"
-      :class="isHomePage && !scrolled && !mobileMenuOpen ? 'text-white' : 'text-black'"
+      class="md:hidden z-50 w-10 h-10 relative focus:outline-none text-black"
     >
       <div class="absolute w-6 h-0.5 transition-all duration-300 transform left-2"
            :class="[
              mobileMenuOpen ? 'rotate-45 top-5 bg-black' : 'top-3',
-             isHomePage && !scrolled && !mobileMenuOpen ? 'bg-white' : 'bg-black'
+             'bg-black'
            ]"></div>
       <div class="absolute w-6 h-0.5 top-5 left-2 transition-all duration-300"
            :class="[
              mobileMenuOpen ? 'opacity-0' : 'opacity-100',
-             isHomePage && !scrolled && !mobileMenuOpen ? 'bg-white' : 'bg-black'
+             'bg-black'
            ]"></div>
       <div class="absolute w-6 h-0.5 transition-all duration-300 transform left-2"
            :class="[
              mobileMenuOpen ? '-rotate-45 top-5 bg-black' : 'top-7',
-             isHomePage && !scrolled && !mobileMenuOpen ? 'bg-white' : 'bg-black'
+             'bg-black'
            ]"></div>
     </button>
   </nav>
@@ -98,12 +97,12 @@
             <div class="flex items-center gap-3 mb-3">
               <span class="text-4xl">{{ authStore.levelInfo?.totemAnimal.emoji || '🐜' }}</span>
               <div>
-                <p class="font-bold text-gray-800">{{ authStore.currentUser?.username || 'Betöltés...' }}</p>
-                <p class="text-sm text-gray-600">{{ authStore.currentUser?.email || 'Betöltés...' }}</p>
+                <p class="font-bold text-white">{{ authStore.currentUser?.username || 'Betöltés...' }}</p>
+                <p class="text-sm text-white/80">{{ authStore.currentUser?.email || 'Betöltés...' }}</p>
               </div>
             </div>
             <div class="flex items-center justify-between">
-              <span class="text-xs font-semibold text-gray-700">{{ authStore.levelInfo?.totemAnimal.name }}</span>
+              <span class="text-xs font-semibold text-white/90">{{ authStore.levelInfo?.totemAnimal.name }}</span>
               <span class="text-xs bg-accent text-black px-3 py-1 rounded-full font-bold">
                 Lvl {{ authStore.levelInfo?.level || 1 }}
               </span>
@@ -111,35 +110,35 @@
           </div>
 
           <!-- Navigation Links -->
-          <ul class="space-y-2">
+          <ul class="space-y-2 mr-4">
             <li>
               <router-link
                 to="/"
                 @click="closeMobileMenu"
-                class="mobile-nav-link block px-4 py-3 rounded-lg text-gray-800 font-semibold hover:bg-white/20 transition-all duration-300"
+                class="block px-4 py-3 rounded-lg text-white font-semibold bg-white/10 hover:bg-white/20 transition-all duration-300"
               >
                 <span class="text-xl mr-3">🏠</span>
-                Home
+                Kezdőlap
               </router-link>
             </li>
             <li>
               <router-link
                 to="/sessions"
                 @click="closeMobileMenu"
-                class="mobile-nav-link block px-4 py-3 rounded-lg text-gray-800 font-semibold hover:bg-white/20 transition-all duration-300"
+                class="block px-4 py-3 rounded-lg text-white font-semibold bg-white/10 hover:bg-white/20 transition-all duration-300"
               >
                 <span class="text-xl mr-3">🧘</span>
-                Sessions
+                Meditációs gyakorlatok
               </router-link>
             </li>
             <li>
               <router-link
                 to="/about"
                 @click="closeMobileMenu"
-                class="mobile-nav-link block px-4 py-3 rounded-lg text-gray-800 font-semibold hover:bg-white/20 transition-all duration-300"
+                class="block px-4 py-3 rounded-lg text-white bg-white/5 font-semibold hover:bg-white/20 transition-all duration-300"
               >
                 <span class="text-xl mr-3">ℹ️</span>
-                About
+                Rólunk
               </router-link>
             </li>
 
@@ -148,7 +147,7 @@
               <router-link
                 to="/profile"
                 @click="closeMobileMenu"
-                class="mobile-nav-link block px-4 py-3 rounded-lg text-gray-800 font-semibold hover:bg-white/20 transition-all duration-300"
+                class="block px-4 py-3 rounded-lg text-white font-semibold bg-white/5 hover:bg-white/20 transition-all duration-300"
               >
                 <span class="text-xl mr-3">👤</span>
                 Profil
@@ -157,7 +156,7 @@
             <li v-if="authStore.isAuthenticated">
               <button
                 @click="handleMobileLogout"
-                class="w-full text-left px-4 py-3 rounded-lg text-red-600 font-semibold hover:bg-white/20 transition-all duration-300"
+                class="w-full text-left px-4 py-3 rounded-lg text-white font-semibold bg-white/5 hover:bg-white/20 transition-all duration-300"
               >
                 <span class="text-xl mr-3">🚪</span>
                 Kijelentkezés
@@ -167,7 +166,7 @@
               <router-link
                 to="/login"
                 @click="closeMobileMenu"
-                class="block px-4 py-3 rounded-lg bg-accent text-black font-bold text-center hover:bg-accent/80 transition-all duration-300"
+                class="block px-4 py-3 rounded-lg bg-accent text-black font-bold text-center bg-yellow/30 hover:bg-accent/80 transition-all duration-300"
               >
                 Bejelentkezés
               </router-link>
@@ -310,35 +309,5 @@ onUnmounted(() => {
 .mobile-menu-enter-to .absolute.right-0,
 .mobile-menu-leave-from .absolute.right-0 {
   transform: translateX(0);
-}
-
-/* Mobile Nav Link Hover Effect */
-.mobile-nav-link {
-  position: relative;
-  overflow: hidden;
-}
-
-.mobile-nav-link::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 50%;
-  width: 3px;
-  height: 0;
-  background: linear-gradient(180deg, #FFD9C0, #8CC0DE);
-  transform: translateY(-50%);
-  transition: height 0.3s ease;
-}
-
-.mobile-nav-link:hover::before {
-  height: 70%;
-}
-
-.mobile-nav-link.router-link-active {
-  background-color: rgba(255, 255, 255, 0.3);
-}
-
-.mobile-nav-link.router-link-active::before {
-  height: 70%;
 }
 </style>

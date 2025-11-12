@@ -5,6 +5,14 @@
         <h1 class="text-2xl font-bold">Controlled Breathing</h1>
         <p class="mt-2 text-gray-600">Vezérelt légzés vizuális visszajelzéssel. Állítsd be a tempót és kövesd a kört.</p>
 
+        <!-- Points Info / Login Reminder -->
+        <div class="mt-6">
+          <PointsInfo 
+            exercise-type="breathing"
+            points-type="time"
+          />
+        </div>
+
         <div class="mt-8 relative">
           <!-- Background circle showing max size -->
           <div class="mx-auto w-64 h-64 rounded-full border-4 border-gray-200/50 flex items-center justify-center">
@@ -49,13 +57,24 @@
         </div>
       </div>
     </div>
+    
+    <!-- Badge Modal -->
+    <BadgeModal 
+      v-if="newBadge"
+      :show="showBadgeModal" 
+      :badge="newBadge"
+      @close="showBadgeModal = false"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, computed, onUnmounted } from 'vue'
 import { useAuthStore } from '../../stores/auth'
-import { calculateBreathingPoints } from '../../utils/points'
+import { calculateBreathingPoints, POINTS_CONFIG } from '../../utils/points'
+import PointsInfo from '../../components/PointsInfo.vue'
+import BadgeModal from '../../components/BadgeModal.vue'
+import type { Badge } from '../../utils/points'
 
 const authStore = useAuthStore()
 const tempo = ref(6)
@@ -65,6 +84,8 @@ const cyclesCompleted = ref(0)
 const showGuestNotification = ref(false)
 const pointsEarned = ref(0)
 const showPointsNotification = ref(false)
+const showBadgeModal = ref(false)
+const newBadge = ref<Badge | null>(null)
 let cycleTimer: number | undefined
 
 const circleStyle = computed(() => ({
@@ -119,14 +140,29 @@ function stopCycle() {
   // Award points if user completed at least one cycle
   if (cyclesCompleted.value > 0) {
     if (authStore.isAuthenticated) {
-      const points = calculateBreathingPoints(cyclesCompleted.value)
-      pointsEarned.value = points
-      authStore.addPoints(points)
-      authStore.addAchievement('breathing_master')
-      showPointsNotification.value = true
-      setTimeout(() => {
-        showPointsNotification.value = false
-      }, 5000)
+      const basePoints = calculateBreathingPoints(cyclesCompleted.value)
+      const isFirstTry = !authStore.currentUser?.featuresTried?.includes('breathing')
+      const totalPoints = basePoints + (isFirstTry ? 20 : 0)
+      
+      pointsEarned.value = totalPoints
+      
+      authStore.addPoints(totalPoints, 'breathing').then(result => {
+        if (result.success) {
+          showPointsNotification.value = true
+          setTimeout(() => {
+            showPointsNotification.value = false
+          }, 5000)
+          
+          // Show badge modal if new badges earned
+          if (result.newBadges && result.newBadges.length > 0) {
+            const badge = result.newBadges[0]
+            if (badge) {
+              newBadge.value = badge
+              showBadgeModal.value = true
+            }
+          }
+        }
+      })
     } else {
       showGuestNotification.value = true
       setTimeout(() => {

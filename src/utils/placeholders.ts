@@ -1,13 +1,28 @@
-export const placeholders = ['/placeholder.jpg', '/placeholder2.jpg', '/placeholder3.jpg']
-
-let _counter = 0
+export const placeholders = [
+  '/415016306_737724388287269_7734169087526831753_n.jpg',
+  '/442443845_979936603790338_7600525431284620624_n.jpg',
+  '/567758888_771280389266275_3363263258714137407_n.jpg',
+  '/568206897_1177593521002302_3263125864559869895_n.jpg',
+  '/574552460_1876617689941133_2271769468690421009_n.jpg',
+  '/574836866_1878762989743000_8000686021027473840_n.jpg',
+  '/574836866_3089407014699328_6097463543670483923_n.jpg',
+  '/575218711_1499398207948116_3481043505103110491_n.webp',
+  '/575250569_1909902316231502_2943184651255950903_n.jpg',
+  '/575270618_1208723427975446_2080991968222220650_n.jpg',
+  '/575626753_1359998132425955_3899850520783520688_n.jpg',
+  '/575778996_1189638926412144_5709498472428570488_n.jpg',
+  '/575848753_1323380419252654_4430659342342786722_n.jpg',
+  '/576526877_1348266343604472_4032870634628268335_n.webp',
+  '/577632283_1509952560223724_5511358337952477524_n.jpg',
+  '/577639410_839182235239737_6082788016599394433_n.jpg'
+]
 
 export function nextPlaceholder() {
-  const p = placeholders[_counter % placeholders.length]
-  _counter += 1
-  return p
+  const randomIndex = Math.floor(Math.random() * placeholders.length)
+  return placeholders[randomIndex]
 }
 
-export function placeholderFor(index: number) {
-  return placeholders[index % placeholders.length]
+export function placeholderFor(_index: number) {
+  const randomIndex = Math.floor(Math.random() * placeholders.length)
+  return placeholders[randomIndex]
 }

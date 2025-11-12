@@ -24,6 +24,16 @@
       "achievements": [
         "stress_buster"
       ]
+    },
+    {
+      "id": "1762939411714",
+      "username": "imer",
+      "email": "asdfasmc@gmail.com",
+      "password": "$2b$10$.mlNHD2N.Cl2x3bInAGqTug5203EHkAD.HXL3TI0OYN9Phxym5d3.",
+      "points": 0,
+      "level": 1,
+      "createdAt": "2025-11-12T09:23:31.714Z",
+      "achievements": []
     }
   ]
 }

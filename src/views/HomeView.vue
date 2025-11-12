@@ -1,5 +1,5 @@
 <template>
-<div class="min-h-screen bg-gradient-to-br from-primary to-secondary -mt-28">
+<div class="min-h-screen bg-gradient-to-br from-primary to-secondary md:-mt-28">
 <!-- Hero -->
 <section class="relative overflow-hidden">
 <div class="relative h-96 md:h-[520px] w-full">

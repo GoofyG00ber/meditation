@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-linear-to-br from-primary to-secondary -mt-28 pt-28">
+  <div class="min-h-screen bg-linear-to-br from-primary to-secondary md:-mt-28 pt-28">
     <div class="container mx-auto px-6 py-12">
       <div class="max-w-4xl mx-auto">
         <!-- Profile Header -->

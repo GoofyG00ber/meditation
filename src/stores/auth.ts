@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import type { User, UserProfile, LoginCredentials, RegisterData } from '../types/user'
-import { calculateLevel } from '../utils/points'
+import { calculateLevel, checkNewBadges, type Badge } from '../utils/points'
 
 const API_URL = 'http://localhost:3001'
 
@@ -109,20 +109,45 @@ export const useAuthStore = defineStore('auth', () => {
     }
   }
 
-  async function addPoints(points: number) {
+  async function addPoints(points: number, exerciseType?: string) {
     if (!currentUser.value) {
       // Guest user - show notification
-      return false
+      return { success: false, newBadges: [] }
     }
 
     try {
       const newPoints = currentUser.value.points + points
       const newLevelInfo = calculateLevel(newPoints)
+      
+      // Track exercise completion
+      const exerciseCounts = { ...(currentUser.value.exerciseCounts || {}) }
+      if (exerciseType) {
+        exerciseCounts[exerciseType] = (exerciseCounts[exerciseType] || 0) + 1
+      }
+      
+      // Track features tried
+      const featuresTried = [...(currentUser.value.featuresTried || [])]
+      if (exerciseType && !featuresTried.includes(exerciseType)) {
+        featuresTried.push(exerciseType)
+      }
+      
+      // Check for new badges
+      const currentBadges = currentUser.value.badges || []
+      const newBadges = checkNewBadges(
+        currentBadges,
+        newPoints,
+        exerciseCounts,
+        featuresTried,
+        points
+      )
 
       const updatedUser = {
         ...currentUser.value,
         points: newPoints,
-        level: newLevelInfo.level
+        level: newLevelInfo.level,
+        badges: [...currentBadges, ...newBadges.map(b => b.id)],
+        exerciseCounts,
+        featuresTried
       }
 
       const response = await fetch(`${API_URL}/users/${currentUser.value.id}`, {
@@ -130,19 +155,22 @@ export const useAuthStore = defineStore('auth', () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           points: newPoints,
-          level: newLevelInfo.level
+          level: newLevelInfo.level,
+          badges: updatedUser.badges,
+          exerciseCounts,
+          featuresTried
         })
       })
 
       if (response.ok) {
         currentUser.value = updatedUser
-        return true
+        return { success: true, newBadges }
       }
 
-      return false
+      return { success: false, newBadges: [] }
     } catch {
       error.value = 'Failed to update points'
-      return false
+      return { success: false, newBadges: [] }
     }
   }
 
