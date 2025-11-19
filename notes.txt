@@ -31,3 +31,11 @@ Profil oldal
 Kiegészites: Pszichologia weboldal hangok lopas
 
 Mindenki küldjön be egy képet magáról rólunk oldalra
+
+
+to do:
+meditacios technikak befejez
+szintek + totemek mokolas
+kerdoiv
+
+fix db on host after dev

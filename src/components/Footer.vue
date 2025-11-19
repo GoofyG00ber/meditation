@@ -69,9 +69,8 @@
     <td class="text-left text-white align-middle w-1/2 px-4">© {{ year }} Meditation App. All rights reserved.</td>
     <td class="text-right align-middle text-white w-1/2 px-4">
       <div class="flex flex-col md:flex-row md:items-center md:justify-end gap-2 md:gap-4">
-        <router-link to="/ASZF" class="text-secondary">ÁSZF</router-link>
-        <router-link to="/privacy-policy" class="text-secondary">Adatkezelési tájékoztató</router-link>
-        <router-link to="/hazirend" class="text-secondary">Házirend</router-link>
+        <router-link to="/aszf" class="text-secondary hover:text-secondary/80 transition-colors">ÁSZF</router-link>
+        <router-link to="/adatvedelmi-szabalyzat" class="text-secondary hover:text-secondary/80 transition-colors">Adatvédelmi szabályzat</router-link>
       </div>
     </td>
   </tr>

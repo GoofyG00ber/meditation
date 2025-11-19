@@ -49,26 +49,84 @@ hogy fókuszált, tudatos és kiegyensúlyozott maradj – akár reggel, tanulá
 </section>
 
 <!-- Feature cards -->
-<section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-<FeatureCard
-v-for="feature in features"
-:key="feature.to"
-:title="feature.title"
-:description="feature.description"
-:to="feature.to"
-/>
+<section class="mb-12">
+  <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-8 text-center">Népszerű gyakorlatok</h2>
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <FeatureCard
+      v-for="feature in featuredExercises"
+      :key="feature.to"
+      :title="feature.title"
+      :description="feature.description"
+      :to="feature.to"
+    />
+  </div>
+  <div class="text-center mt-8">
+    <router-link 
+      to="/sessions" 
+      class="inline-block bg-accent text-black font-bold px-8 py-4 rounded-xl hover:bg-accent/80 transition-all hover:scale-105 shadow-lg"
+    >
+      Összes meditációs módszer →
+    </router-link>
+  </div>
 </section>
 
 <!-- Image + text block -->
-<section class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
-<div class="md:col-span-2 bg-white rounded-2xl p-8 shadow">
-<h2 class="text-2xl font-bold">Miért működik?</h2>
-<p class="mt-4 text-gray-700">A rendszeres gyakorlás kis lépésekben építkezik. Tudatos légzés, rövid fókusz gyakorlatok és következetes időbeosztás.</p>
-</div>
+<section class="mb-16">
+  <div class="bg-gradient-to-br from-white via-accent/5 to-success/10 rounded-3xl shadow-2xl overflow-hidden">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-0 items-center">
+      <!-- Text Content -->
+      <div class="p-8 md:p-12 lg:p-16 order-2 lg:order-1">
+        <div class="inline-block mb-4 px-4 py-2 bg-accent/20 rounded-full">
+          <span class="text-accent font-semibold text-sm">✨ Tudományosan bizonyított</span>
+        </div>
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-6 leading-tight">
+          Miért működik?
+        </h2>
+        <p class="text-lg text-gray-700 leading-relaxed mb-6">
+          A rendszeres gyakorlás kis lépésekben építkezik. Tudatos légzés, rövid fókusz gyakorlatok és következetes időbeosztás.
+        </p>
+        <div class="space-y-4">
+          <div class="flex items-start gap-3">
+            <div class="shrink-0 w-10 h-10 bg-accent/20 rounded-full flex items-center justify-center">
+              <span class="text-accent text-xl">🧘</span>
+            </div>
+            <div>
+              <h3 class="font-semibold text-gray-800 mb-1">Tudatos légzés</h3>
+              <p class="text-gray-600 text-sm">Nyugtatja az idegrendszert és csökkenti a stresszt</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <div class="shrink-0 w-10 h-10 bg-success/20 rounded-full flex items-center justify-center">
+              <span class="text-success text-xl">🎯</span>
+            </div>
+            <div>
+              <h3 class="font-semibold text-gray-800 mb-1">Fókusz gyakorlatok</h3>
+              <p class="text-gray-600 text-sm">Javítja a koncentrációt és a mentális tisztaságot</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <div class="shrink-0 w-10 h-10 bg-secondary/20 rounded-full flex items-center justify-center">
+              <span class="text-secondary text-xl">⏰</span>
+            </div>
+            <div>
+              <h3 class="font-semibold text-gray-800 mb-1">Következetes rutin</h3>
+              <p class="text-gray-600 text-sm">Tartós változást és jobb eredményeket hoz</p>
+            </div>
+          </div>
+        </div>
+      </div>
 
-<div class="bg-white rounded-2xl p-4 shadow flex items-center justify-center h-40">
-<img :src="illustrationImg" alt="illustration" class="object-cover w-full h-full rounded-lg" />
-</div>
+      <!-- Image -->
+      <div class="order-1 lg:order-2 h-64 md:h-80 lg:h-full min-h-[400px] relative overflow-hidden">
+        <img 
+          :src="illustrationImg" 
+          alt="Meditáció illusztráció" 
+          class="absolute inset-0 w-full h-full object-cover hover:scale-105 transition-transform duration-700" 
+        />
+        <div class="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-r from-accent/10 to-transparent"></div>
+      </div>
+    </div>
+  </div>
 </section>
 </main>
 </div>
@@ -76,19 +134,18 @@ v-for="feature in features"
 </template>
 
 <script setup lang="ts">
-import { placeholderFor } from '../utils/placeholders'
 import FeatureCard from '../components/FeatureCard.vue'
 
-const heroImg = placeholderFor(0) as string
-const illustrationImg = placeholderFor(1) as string
+// Use placeholder.jpg for hero image (consistent, no randomization)
+const heroImg = '/placeholder.jpg'
+// Use a different placeholder for the illustration section
+const illustrationImg = '/placeholder2.jpg'
 
-const features = [
-  { title: 'Napi emlékeztető', description: 'Állíts be emlékeztetőt, hogy ne felejts el meditálni.', to: '/features/reminder' },
-  { title: 'Relaxáló háttérhangok', description: 'Válassz vízesés, madárcsicsergés és egyéb természetes hangok közül.', to: '/features/background-sounds' },
-  { title: 'Alvást segítő hangok', description: 'Különleges hangkompozíciók az elalváshoz.', to: '/features/sleep-sounds' },
-  { title: 'Meditációs videók', description: 'Nézd meg a vezetett videós meditációkat.', to: '/features/videos' },
-  { title: 'Időzített csendes meditáció', description: 'Állíts be kezdési időt és időtartamot.', to: '/features/timed-meditation' },
-  { title: 'Controlled Breathing', description: 'Légzésszabályozó gyakorlatok vizuális vezérléssel.', to: '/features/breathing' },
+// Featured exercises to display on home page
+const featuredExercises = [
+  { title: 'Whack-a-Mole játék', description: 'Ütögesd ki a stresszt interaktív játékkal!', to: '/features/whack-a-mole' },
+  { title: 'Légzésszabályozás', description: 'Légzésszabályozó gyakorlatok vizuális vezérléssel.', to: '/features/breathing' },
+  { title: 'Napi visszatekintés', description: 'Gondold át a napodat békében.', to: '/features/daily-reflection' },
 ]
 </script>
 

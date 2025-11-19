@@ -15,7 +15,7 @@
                   <p class="text-sm text-gray-500">{{ sound.desc }}</p>
                 </div>
                 <div class="flex items-center gap-2">
-                  <button @click="toggle(sound)" class="px-3 py-1 rounded bg-indigo-600 text-white text-sm">{{ sound.playing ? 'Stop' : 'Play' }}</button>
+                  <button @click="toggle(sound)" class="px-3 py-1 rounded bg-indigo-600 text-white text-sm">{{ sound.playing ? 'Leállít' : 'Lejátszás' }}</button>
                 </div>
               </div>
             </div>

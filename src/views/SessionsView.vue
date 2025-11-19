@@ -27,7 +27,7 @@
             :to="'/features/morning-affirmations'"
           />
           <FeatureCard
-            :title="'Controlled Breathing'"
+            :title="'Légzésszabályozás'"
             :description="'Légzésszabályozó gyakorlatok vizuális vezérléssel.'"
             :to="'/features/breathing'"
           />
@@ -55,7 +55,7 @@
             :to="'/features/study-break'"
           />
           <FeatureCard
-            :title="'Controlled Breathing'"
+            :title="'Légzésszabályozás'"
             :description="'Légzésszabályozó gyakorlatok vizuális vezérléssel.'"
             :to="'/features/breathing'"
           />
@@ -83,9 +83,9 @@
             :to="'/features/body-scan'"
           />
           <FeatureCard
-            :title="'Controlled Breathing'"
-            :description="'Légzésszabályozó gyakorlatok vizuális vezérléssel.'"
-            :to="'/features/breathing'"
+            :title="'Földelés gyakorlat'"
+            :description="'Kapcsolódj vissza a jelen pillanathoz.'"
+            :to="'/features/grounding'"
           />
         </div>
       </section>
@@ -106,17 +106,12 @@
             :to="'/features/panic-relief'"
           />
           <FeatureCard
-            :title="'Földelés gyakorlat'"
-            :description="'Kapcsolódj vissza a jelen pillanathoz.'"
-            :to="'/features/grounding'"
-          />
-          <FeatureCard
             :title="'Whack-a-Mole játék'"
             :description="'Ütögesd ki a stresszt interaktív játékkal!'"
             :to="'/features/whack-a-mole'"
           />
           <FeatureCard
-            :title="'Controlled Breathing'"
+            :title="'Légzésszabályozás'"
             :description="'Légzésszabályozó gyakorlatok vizuális vezérléssel.'"
             :to="'/features/breathing'"
           />

@@ -160,13 +160,13 @@
 </template>
 
 <script setup lang="ts">
-import { nextPlaceholder } from '../../utils/placeholders'
+import { placeholderFor } from '../../utils/placeholders'
 import { useAuthStore } from '../../stores/auth'
 import { useMeditationPoints } from '../../composables/useMeditationPoints'
 import PointsInfo from '../../components/PointsInfo.vue'
 import BadgeModal from '../../components/BadgeModal.vue'
 
-const heroImage = nextPlaceholder()
+const heroImage = placeholderFor(10) // Memória erősítő
 const authStore = useAuthStore()
 
 const {

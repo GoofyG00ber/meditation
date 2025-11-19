@@ -2,7 +2,7 @@
   <div class="min-h-screen bg-slate-50">
     <div class="container mx-auto px-6 py-12">
       <div class="max-w-2xl mx-auto bg-white rounded-2xl p-8 shadow text-center">
-        <h1 class="text-2xl font-bold">Controlled Breathing</h1>
+        <h1 class="text-2xl font-bold">Légzésszabályozás</h1>
         <p class="mt-2 text-gray-600">Vezérelt légzés vizuális visszajelzéssel. Állítsd be a tempót és kövesd a kört.</p>
 
         <!-- Points Info / Login Reminder -->
@@ -25,12 +25,12 @@
           <div class="h-16"></div>
 
           <div class="flex items-center justify-center gap-4">
-            <label class="text-sm text-gray-600">Tempo (sec)</label>
+            <label class="text-sm text-gray-600">Tempó (mp)</label>
             <input type="range" min="2" max="10" v-model.number="tempo" class="w-48" />
           </div>
 
           <div class="mt-4">
-            <button @click="toggle" :class="['px-4 py-2 rounded-md', running ? 'bg-red-500 text-white' : 'bg-indigo-600 text-white']">{{ running ? 'Stop' : 'Start' }}</button>
+            <button @click="toggle" :class="['px-4 py-2 rounded-md', running ? 'bg-red-500 text-white' : 'bg-indigo-600 text-white']">{{ running ? 'Leállít' : 'Indít' }}</button>
           </div>
 
           <!-- Points Notification -->
@@ -71,7 +71,7 @@
 <script setup lang="ts">
 import { ref, computed, onUnmounted } from 'vue'
 import { useAuthStore } from '../../stores/auth'
-import { calculateBreathingPoints, POINTS_CONFIG } from '../../utils/points'
+import { calculateBreathingPoints } from '../../utils/points'
 import PointsInfo from '../../components/PointsInfo.vue'
 import BadgeModal from '../../components/BadgeModal.vue'
 import type { Badge } from '../../utils/points'

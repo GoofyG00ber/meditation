@@ -21,8 +21,8 @@
         <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 shadow-lg mb-8">
           <h2 class="text-2xl font-bold mb-4">Cél</h2>
           <p class="text-gray-200 leading-relaxed mb-4">
-            Pozitív érzelmi lezárás, dopamin- és szerotoninrendszer aktiválása. 
-            A hálaérzet csökkenti a kortizolszintet és növeli a szerotonintermelést, 
+            Pozitív érzelmi lezárás, dopamin- és szerotoninrendszer aktiválása.
+            A hálaérzet csökkenti a kortizolszintet és növeli a szerotonintermelést,
             így a test könnyebben eléri az alváshoz szükséges nyugalmi állapotot.
           </p>
         </div>
@@ -30,13 +30,13 @@
         <!-- Practice Steps -->
         <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 shadow-lg mb-8">
           <h2 class="text-2xl font-bold mb-6">Hogyan csináld?</h2>
-          
+
           <div class="space-y-6">
             <div class="flex gap-4">
               <div class="shrink-0 w-12 h-12 bg-fuchsia-500 text-white rounded-full flex items-center justify-center font-bold text-lg">1</div>
               <div class="flex-1">
                 <p class="text-gray-200 leading-relaxed">
-                  Hunyd le a szemed, és idézz fel három dolgot, amiért ma hálás lehetsz. 
+                  Hunyd le a szemed, és idézz fel három dolgot, amiért ma hálás lehetsz.
                   Lehet apróság is: egy finom étel, egy mosoly, vagy hogy sikerült egy feladatod.
                 </p>
               </div>
@@ -70,12 +70,12 @@
         <!-- Interactive Gratitude Journal -->
         <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 shadow-lg mb-8">
           <h2 class="text-2xl font-bold mb-6">Ma három dolog, amiért hálás vagyok:</h2>
-          
+
           <div class="space-y-4">
             <div>
               <label class="block text-sm text-gray-300 mb-2">1.</label>
-              <textarea 
-                v-model="gratitude1" 
+              <textarea
+                v-model="gratitude1"
                 class="w-full bg-white/5 border border-white/20 rounded-lg p-3 text-white placeholder-gray-400 focus:outline-none focus:border-fuchsia-400"
                 rows="2"
                 placeholder="pl. Egy barátom hívott, és jól esett vele beszélni..."
@@ -84,8 +84,8 @@
 
             <div>
               <label class="block text-sm text-gray-300 mb-2">2.</label>
-              <textarea 
-                v-model="gratitude2" 
+              <textarea
+                v-model="gratitude2"
                 class="w-full bg-white/5 border border-white/20 rounded-lg p-3 text-white placeholder-gray-400 focus:outline-none focus:border-fuchsia-400"
                 rows="2"
                 placeholder="pl. A nap végén volt időm egy kicsit olvasni..."
@@ -94,8 +94,8 @@
 
             <div>
               <label class="block text-sm text-gray-300 mb-2">3.</label>
-              <textarea 
-                v-model="gratitude3" 
+              <textarea
+                v-model="gratitude3"
                 class="w-full bg-white/5 border border-white/20 rounded-lg p-3 text-white placeholder-gray-400 focus:outline-none focus:border-fuchsia-400"
                 rows="2"
                 placeholder="pl. Ma sikerült befejeznem egy feladatot..."
@@ -165,13 +165,13 @@
 
         <!-- Back Button -->
         <div class="mt-8 flex justify-center gap-4">
-          <router-link 
-            to="/sessions" 
+          <router-link
+            to="/sessions"
             class="inline-block bg-fuchsia-500 hover:bg-fuchsia-600 text-white font-semibold px-8 py-3 rounded-lg transition-colors"
           >
             ← Vissza a gyakorlatokhoz
           </router-link>
-          
+
           <button
             v-if="authStore.isAuthenticated && !completed"
             @click="() => completeExercise()"
@@ -181,7 +181,7 @@
             {{ completing ? 'Mentés...' : 'Gyakorlat befejezve ✓' }}
           </button>
         </div>
-        
+
         <!-- Completion Message -->
         <div v-if="completed" class="mt-6 bg-green-50 border-l-4 border-green-500 rounded-lg p-6 text-center">
           <p class="text-lg font-semibold text-green-800">🎉 Gratulálunk! Befejezted a gyakorlatot!</p>
@@ -189,11 +189,11 @@
         </div>
       </div>
     </div>
-    
+
     <!-- Badge Modal -->
-    <BadgeModal 
+    <BadgeModal
       v-if="newBadge"
-      :show="showBadgeModal" 
+      :show="showBadgeModal"
       :badge="newBadge"
       @close="closeBadgeModal"
     />
@@ -202,13 +202,13 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import { nextPlaceholder } from '../../utils/placeholders'
+import { placeholderFor } from '../../utils/placeholders'
 import { useAuthStore } from '../../stores/auth'
 import { useMeditationPoints } from '../../composables/useMeditationPoints'
 import PointsInfo from '../../components/PointsInfo.vue'
 import BadgeModal from '../../components/BadgeModal.vue'
 
-const heroImage = nextPlaceholder()
+const heroImage = placeholderFor(13) // Napi visszatekintés
 const authStore = useAuthStore()
 
 const {
@@ -226,8 +226,8 @@ const gratitude2 = ref('')
 const gratitude3 = ref('')
 
 const allFilled = computed(() => {
-  return gratitude1.value.trim() !== '' && 
-         gratitude2.value.trim() !== '' && 
+  return gratitude1.value.trim() !== '' &&
+         gratitude2.value.trim() !== '' &&
          gratitude3.value.trim() !== ''
 })
 </script>

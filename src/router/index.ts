@@ -13,10 +13,13 @@ import WhackAMoleView from '../views/feature/WhackAMoleView.vue'
 import LoginView from '../views/LoginView.vue'
 import RegisterView from '../views/RegisterView.vue'
 import ProfileView from '../views/ProfileView.vue'
+import AszfView from '../views/AszfView.vue'
+import AdatvedelmiSzabalyzatView from '../views/AdatvedelmiSzabalyzatView.vue'
 
 // Morning practices
 import MorningMindfulnessView from '../views/feature/MorningMindfulnessView.vue'
 import MorningAffirmationsView from '../views/feature/MorningAffirmationsView.vue'
+import MorningBreathingView from '../views/feature/MorningBreathingView.vue'
 
 // Study/Learning practices
 import StudyFocusView from '../views/feature/StudyFocusView.vue'
@@ -52,6 +55,7 @@ const routes = [
   // Morning practices
   { path: '/features/morning-mindfulness', name: 'MorningMindfulness', component: MorningMindfulnessView },
   { path: '/features/morning-affirmations', name: 'MorningAffirmations', component: MorningAffirmationsView },
+  { path: '/features/morning-breathing', name: 'MorningBreathing', component: MorningBreathingView },
   
   // Study/Learning practices
   { path: '/features/study-focus', name: 'StudyFocus', component: StudyFocusView },
@@ -72,6 +76,8 @@ const routes = [
   { path: '/login', name: 'Login', component: LoginView },
   { path: '/register', name: 'Register', component: RegisterView },
   { path: '/profile', name: 'Profile', component: ProfileView },
+  { path: '/aszf', name: 'Aszf', component: AszfView },
+  { path: '/adatvedelmi-szabalyzat', name: 'AdatvedelmiSzabalyzat', component: AdatvedelmiSzabalyzatView },
 ]
 
 const router = createRouter({

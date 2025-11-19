@@ -1,3 +1,4 @@
+// Fixed images for consistent display
 export const placeholders = [
   '/415016306_737724388287269_7734169087526831753_n.jpg',
   '/442443845_979936603790338_7600525431284620624_n.jpg',
@@ -17,12 +18,11 @@ export const placeholders = [
   '/577639410_839182235239737_6082788016599394433_n.jpg'
 ]
 
-export function nextPlaceholder() {
-  const randomIndex = Math.floor(Math.random() * placeholders.length)
-  return placeholders[randomIndex]
+// Use a consistent placeholder based on index (no randomization)
+export function nextPlaceholder(index: number = 0) {
+  return placeholders[index % placeholders.length]
 }
 
-export function placeholderFor(_index: number) {
-  const randomIndex = Math.floor(Math.random() * placeholders.length)
-  return placeholders[randomIndex]
+export function placeholderFor(index: number) {
+  return placeholders[index % placeholders.length]
 }

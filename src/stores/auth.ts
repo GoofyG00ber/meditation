@@ -1,9 +1,10 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import type { User, UserProfile, LoginCredentials, RegisterData } from '../types/user'
-import { calculateLevel, checkNewBadges, type Badge } from '../utils/points'
+import { calculateLevel, checkNewBadges } from '../utils/points'
 
-const API_URL = 'http://localhost:3001'
+// Use environment variable or fall back to localhost for development
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001'
 
 export const useAuthStore = defineStore('auth', () => {
   const currentUser = ref<UserProfile | null>(null)
@@ -68,6 +69,8 @@ export const useAuthStore = defineStore('auth', () => {
       }
 
       const createdUser: UserProfile = await response.json()
+      // Ensure badges is always an array
+      createdUser.badges = createdUser.badges || []
       currentUser.value = createdUser
       isGuest.value = false
 
@@ -102,6 +105,8 @@ export const useAuthStore = defineStore('auth', () => {
       const user: User = await response.json()
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { password, ...profile } = user
+      // Ensure badges is always an array
+      profile.badges = profile.badges || []
       currentUser.value = profile
       isGuest.value = false
     } catch {
@@ -118,19 +123,19 @@ export const useAuthStore = defineStore('auth', () => {
     try {
       const newPoints = currentUser.value.points + points
       const newLevelInfo = calculateLevel(newPoints)
-      
+
       // Track exercise completion
       const exerciseCounts = { ...(currentUser.value.exerciseCounts || {}) }
       if (exerciseType) {
         exerciseCounts[exerciseType] = (exerciseCounts[exerciseType] || 0) + 1
       }
-      
+
       // Track features tried
       const featuresTried = [...(currentUser.value.featuresTried || [])]
       if (exerciseType && !featuresTried.includes(exerciseType)) {
         featuresTried.push(exerciseType)
       }
-      
+
       // Check for new badges
       const currentBadges = currentUser.value.badges || []
       const newBadges = checkNewBadges(

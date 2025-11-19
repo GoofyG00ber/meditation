@@ -80,28 +80,28 @@
 
           <div class="bg-white rounded-xl p-6 shadow-lg text-center">
             <div class="text-4xl mb-2">🏆</div>
-            <p class="text-sm text-gray-600">Eredmények</p>
-            <p class="text-3xl font-bold text-secondary">{{ authStore.currentUser?.achievements.length || 0 }}</p>
+            <p class="text-sm text-gray-600">Jelvények</p>
+            <p class="text-3xl font-bold text-secondary">{{ authStore.currentUser?.badges?.length || 0 }}</p>
           </div>
         </div>
 
-        <!-- Achievements -->
+        <!-- Badges -->
         <div class="bg-white rounded-2xl p-8 shadow-lg">
-          <h2 class="text-2xl font-bold text-gray-800 mb-4">🏆 Eredmények</h2>
+          <h2 class="text-2xl font-bold text-gray-800 mb-4">🏆 Jelvények</h2>
 
-          <div v-if="authStore.currentUser && authStore.currentUser.achievements.length > 0" class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div v-if="authStore.currentUser && authStore.currentUser.badges && authStore.currentUser.badges.length > 0" class="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div
-              v-for="achievement in authStore.currentUser.achievements"
-              :key="achievement"
+              v-for="badgeId in authStore.currentUser.badges"
+              :key="badgeId"
               class="bg-linear-to-br from-accent/20 to-success/20 rounded-lg p-4 text-center"
             >
-              <div class="text-3xl mb-2">🏅</div>
-              <p class="text-sm font-semibold text-gray-700">{{ formatAchievement(achievement) }}</p>
+              <div class="text-3xl mb-2">{{ getBadgeEmoji(badgeId) }}</div>
+              <p class="text-sm font-semibold text-gray-700">{{ getBadgeName(badgeId) }}</p>
             </div>
           </div>
 
           <div v-else class="text-center text-gray-500 py-8">
-            <p>Még nincsenek eredményeid</p>
+            <p>Még nincsenek jelvényeid</p>
             <p class="text-sm mt-2">Kezdj el játszani a meditációs játékokkal!</p>
           </div>
         </div>
@@ -124,6 +124,7 @@
 import { computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '../stores/auth'
+import { BADGES } from '../utils/points'
 
 const router = useRouter()
 const authStore = useAuthStore()
@@ -142,19 +143,13 @@ async function handleLogout() {
   router.push('/')
 }
 
-function formatAchievement(achievement: string): string {
-  const achievements: Record<string, string> = {
-    'first_game': 'Első játék',
-    'stress_buster': 'Stresszoldó',
-    'breathing_master': 'Légzés mester',
-    'whack_champion': 'Whack bajnok',
-    'level_5': '5. szint',
-    'level_10': '10. szint',
-    'points_100': '100 pont',
-    'points_500': '500 pont',
-    'points_1000': '1000 pont'
-  }
+function getBadgeEmoji(badgeId: string): string {
+  const badge = BADGES.find(b => b.id === badgeId)
+  return badge?.emoji || '🏅'
+}
 
-  return achievements[achievement] || achievement
+function getBadgeName(badgeId: string): string {
+  const badge = BADGES.find(b => b.id === badgeId)
+  return badge?.name || badgeId
 }
 </script>

@@ -38,7 +38,7 @@
         />
 
         <FeatureCard
-          title="Controlled Breathing"
+          title="Légzésszabályozás"
           description="Légzésszabályozó gyakorlatok vizuális vezérléssel."
           :to="'/features/breathing'"
         />

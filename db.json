@@ -34,6 +34,34 @@
       "level": 1,
       "createdAt": "2025-11-12T09:23:31.714Z",
       "achievements": []
+    },
+    {
+      "id": "1763573641520",
+      "username": "asder",
+      "email": "asder@a.hu",
+      "password": "$2b$10$K.ggHzeX3DgWDV8sVhX/M.w7g7djLPUJ.X81cOlUS0Rot.kPoikja",
+      "points": 260,
+      "level": 3,
+      "createdAt": "2025-11-19T17:34:01.520Z",
+      "achievements": [],
+      "badges": [
+        "morning_explorer",
+        "rookie",
+        "study_master",
+        "stress_warrior"
+      ],
+      "exerciseCounts": {
+        "morning_breathing": 1,
+        "morning": 1,
+        "study": 3,
+        "stress": 1
+      },
+      "featuresTried": [
+        "morning_breathing",
+        "morning",
+        "study",
+        "stress"
+      ]
     }
   ]
 }

@@ -35,14 +35,14 @@
 
           <!-- Image Upload -->
           <div class="mt-2 text-center">
-            <label class="cursor-pointer inline-block bg-accent text-black px-3 py-1 rounded-lg shadow-lg hover:bg-accent/80 transition-all font-semibold text-xs">
+            <label class="cursor-pointer inline-block bg-accent hover:bg-amber-400 bg-amber-300 text-black px-3 py-1 rounded-lg shadow-lg hover:bg-accent/80 transition-all font-semibold text-xs">
               <input
                 type="file"
                 accept="image/*"
                 @change="handleImageUpload"
                 class="hidden"
               />
-              {{ uploadedImage ? '✓ Kép feltöltve' : '📸 Töltsd fel a stressz képét' }}
+              {{ uploadedImage ? '✓ Kép feltöltve' : '📸 Töltsd fel a képét annak aki a stresszed forrása!' }}
             </label>
           </div>
         </div>
@@ -178,9 +178,9 @@
     </div>
 
     <!-- Badge Modal -->
-    <BadgeModal 
+    <BadgeModal
       v-if="newBadge"
-      :show="showBadgeModal" 
+      :show="showBadgeModal"
       :badge="newBadge"
       @close="closeBadgeModal"
     />
@@ -291,7 +291,7 @@ const endGame = async () => {
   if (authStore.isAuthenticated && score.value > 0) {
     const points = calculateWhackAMolePoints(score.value)
     pointsEarned.value = points
-    
+
     const result = await authStore.addPoints(points, 'whack_a_mole')
     if (result.success && result.newBadges.length > 0) {
       const badge = result.newBadges[0]
@@ -300,7 +300,7 @@ const endGame = async () => {
         showBadgeModal.value = true
       }
     }
-    
+
     showPointsNotification.value = true
     setTimeout(() => {
       showPointsNotification.value = false

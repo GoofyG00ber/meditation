@@ -13,7 +13,7 @@
           to="/"
           :class="['nav-link px-4 py-2 rounded-lg transition-all duration-300', isHomePage && !scrolled ? 'text-white' : 'text-black']"
         >
-          Home
+          Kezdőlap
         </router-link>
       </li>
       <li>
@@ -21,7 +21,7 @@
           to="/sessions"
           :class="['nav-link px-4 py-2 rounded-lg transition-all duration-300', isHomePage && !scrolled ? 'text-white' : 'text-black']"
         >
-          Sessions
+          Meditációk
         </router-link>
       </li>
       <li>
@@ -29,7 +29,7 @@
           to="/about"
           :class="['nav-link px-4 py-2 rounded-lg transition-all duration-300', isHomePage && !scrolled ? 'text-white' : 'text-black']"
         >
-          About
+          Rólunk
         </router-link>
       </li>
 
