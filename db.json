@@ -62,6 +62,70 @@
         "study",
         "stress"
       ]
+    },
+    {
+      "id": "1764014720038",
+      "username": "perec",
+      "email": "m@m.hu",
+      "password": "$2b$10$WwzqojZaRlpTXLj1O3iz2OL7cN5ZMyVtJqezjaNmMr7fJ12S1F.MO",
+      "points": 280,
+      "level": 3,
+      "createdAt": "2025-11-24T20:05:20.038Z",
+      "achievements": [],
+      "badges": [
+        "morning_explorer",
+        "study_master",
+        "rookie"
+      ],
+      "exerciseCounts": {
+        "morning": 2,
+        "study": 1,
+        "morning_breathing": 1
+      },
+      "featuresTried": [
+        "morning",
+        "study",
+        "morning_breathing"
+      ],
+      "questionnaireResults": [
+        {
+          "answers": {
+            "0": 1,
+            "1": 2,
+            "2": 5,
+            "3": 2,
+            "4": 3,
+            "5": 3,
+            "6": 1,
+            "7": 3,
+            "8": 2,
+            "9": "Víz (érzelem, áramlás)",
+            "10": "kutya"
+          },
+          "totalPoints": 22,
+          "totemAnimal": "delfin",
+          "timestamp": 1764089684471
+        },
+        {
+          "answers": {
+            "0": 2,
+            "1": 2,
+            "2": 5,
+            "3": 2,
+            "4": 2,
+            "5": 3,
+            "6": 2,
+            "7": 2,
+            "8": 3,
+            "9": "Víz (érzelem, áramlás)",
+            "10": "cica"
+          },
+          "totalPoints": 23,
+          "totemAnimal": "delfin",
+          "timestamp": 1764089987305
+        }
+      ],
+      "hasCompletedQuestionnaire": true
     }
   ]
 }

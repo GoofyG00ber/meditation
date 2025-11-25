@@ -3,7 +3,7 @@
     v-if="to" 
     :to="to" 
     :class="[
-      'block bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all transform hover:-translate-y-2 hover:scale-[1.02] cursor-pointer group',
+      'block bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all transform hover:-translate-y-2 hover:scale-[1.02] cursor-pointer group focus:outline-none focus:ring-0',
       isWhackAMole ? 'rainbow-glow' : ''
     ]"
   >
@@ -13,24 +13,18 @@
     <div class="p-5">
       <h3 class="text-lg font-semibold text-gray-800 group-hover:text-accent transition-colors">{{ title }}</h3>
       <p class="mt-2 text-gray-700 text-sm">{{ description }}</p>
-      <div class="mt-4 flex items-center justify-between">
+      <div class="mt-4">
         <div class="inline-flex items-center gap-2 text-accent font-semibold group-hover:gap-3 transition-all">
           <span>Megnyitás</span>
           <span class="transform group-hover:translate-x-1 transition-transform">→</span>
         </div>
-        <button 
-          @click.prevent="$emit('action')" 
-          class="bg-accent text-white px-4 py-2 rounded-lg text-sm hover:bg-accent/80 transition-all shadow-md hover:shadow-lg"
-        >
-          Használ
-        </button>
       </div>
     </div>
   </router-link>
   
   <div 
     v-else
-    class="block bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all transform hover:-translate-y-2 cursor-default group"
+    class="block bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all transform hover:-translate-y-2 cursor-default group focus:outline-none focus:ring-0"
   >
     <div class="h-44 bg-secondary flex items-center justify-center overflow-hidden">
       <img :src="imgSrc" :alt="title" class="object-cover w-full h-full" />
@@ -38,11 +32,8 @@
     <div class="p-5">
       <h3 class="text-lg font-semibold text-gray-800">{{ title }}</h3>
       <p class="mt-2 text-gray-700 text-sm">{{ description }}</p>
-      <div class="mt-4 flex items-center justify-between">
-        <div>
-          <span class="text-gray-400 text-sm">(Nincs részletek)</span>
-        </div>
-        <button @click="$emit('action')" class="bg-accent text-white px-4 py-2 rounded-lg text-sm hover:bg-accent/80 transition-all shadow-md">Használ</button>
+      <div class="mt-4">
+        <span class="text-gray-400 text-sm">(Nincs részletek)</span>
       </div>
     </div>
   </div>

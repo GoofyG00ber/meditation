@@ -77,7 +77,7 @@ export const BADGES: Badge[] = [
 ]
 
 // Totem animals for each level range
-export const TOTEM_ANIMALS = {
+export const TOTEM_ANIMALS: Record<number, { emoji: string; name: string; color: string }> = {
   1: { emoji: '🐜', name: 'Nyüzsgő Hangya', color: '#8B4513' },
   2: { emoji: '🐢', name: 'Lassú Teknős', color: '#6B8E23' },
   3: { emoji: '🐊', name: 'Nyugodt Alligátor', color: '#2F4F4F' },
@@ -88,6 +88,70 @@ export const TOTEM_ANIMALS = {
   8: { emoji: '🕊️', name: 'Szabad Galamb', color: '#B0C4DE' },
   9: { emoji: '🐦', name: 'Harmonikus Kék Madár', color: '#4169E1' },
   10: { emoji: '🦅', name: 'Szárnyaló Sas', color: '#FFD700' },
+}
+
+// Level descriptions, quotes and thresholds (used in profile and roadmap)
+export const LEVEL_DESCRIPTIONS: Record<number, { title: string; quote: string; description: string; threshold?: number }> = {
+  1: {
+    title: 'Nyüzsgő Hangya',
+    quote: 'A hangya a fókusz és fegyelem szimbóluma.',
+    description: 'A tudatos jelenlét első lépése: megtanulod figyelni a részleteket. Apró lépésekben épül a koncentráció.',
+    threshold: POINTS_CONFIG.LEVEL_THRESHOLDS[0]
+  },
+  2: {
+    title: 'Lassú Teknős',
+    quote: 'A teknős a lassulás és nyugalom megtestesítője.',
+    description: 'A mély, lassú légzés ritmusában tanulod meg, hogy nem kell sietni — a béke a lassúságból születik.',
+    threshold: POINTS_CONFIG.LEVEL_THRESHOLDS[1]
+  },
+  3: {
+    title: 'Nyugodt Alligátor',
+    quote: 'Az aligátor a tudatos erő és kontrollált energia jelképe.',
+    description: 'A felszín alatt csend van, mégis hatalmas erő lakozik benned. Ez a szint a tudatos jelenlét stabilitását építi.',
+    threshold: POINTS_CONFIG.LEVEL_THRESHOLDS[2]
+  },
+  4: {
+    title: 'Türelmes Gyík',
+    quote: 'A gyík a regeneráció és alkalmazkodás szimbóluma.',
+    description: 'A tudat képes újrateremteni magát. Minden figyelmi visszatérés a jelenbe olyan, mint egy újrakezdés.',
+    threshold: POINTS_CONFIG.LEVEL_THRESHOLDS[3]
+  },
+  5: {
+    title: 'Békés Béka',
+    quote: 'A béka a víz és föld harmóniáját testesíti meg.',
+    description: 'Megtanulsz lebegni a gondolatok áradata fölött, megtartva a belső stabilitást – ez a mindfulness első mély szintje.',
+    threshold: POINTS_CONFIG.LEVEL_THRESHOLDS[4]
+  },
+  6: {
+    title: 'Bölcs Bagoly',
+    quote: 'A bagoly a belátás és tisztánlátás szimbóluma.',
+    description: 'A csendben felismered a lényeget. A tudatosságod már nemcsak figyel, hanem megért és átlát.',
+    threshold: POINTS_CONFIG.LEVEL_THRESHOLDS[5]
+  },
+  7: {
+    title: 'Lebegő Pillangó',
+    quote: 'A pillangó az átalakulás és könnyedség szimbóluma.',
+    description: 'A gyakorlás során megtanulod elengedni az erőlködést — a nyugalom természetes állapotként jelenik meg.',
+    threshold: POINTS_CONFIG.LEVEL_THRESHOLDS[6]
+  },
+  8: {
+    title: 'Szabad Galamb',
+    quote: 'A galamb a belső béke és nyitottság megtestesítője.',
+    description: 'A légzésed szabad, az elméd nyugodt. A béke nem csak benned van, hanem belőled árad.',
+    threshold: POINTS_CONFIG.LEVEL_THRESHOLDS[7]
+  },
+  9: {
+    title: 'Harmonikus Kék Madár',
+    quote: 'A kék madár a harmónia, önkifejezés és együttérzés szimbóluma.',
+    description: 'A figyelem most már szeretetteljes és együtt érző. Megtanulod meghallani a csendben a szív bölcsességét.',
+    threshold: POINTS_CONFIG.LEVEL_THRESHOLDS[8]
+  },
+  10: {
+    title: 'Szárnyaló Sas',
+    quote: 'A sas a magasabb tudatállapot és tiszta rálátás jelképe.',
+    description: 'Innen fentről minden összefügg. A tudatos jelenlét nem gyakorlat többé – hanem természetes létállapot.',
+    threshold: POINTS_CONFIG.LEVEL_THRESHOLDS[9]
+  }
 }
 
 export interface LevelInfo {
@@ -120,7 +184,7 @@ export function calculateLevel(points: number): LevelInfo {
   const pointsNeededForLevel = pointsForNextLevel - pointsForCurrentLevel
   const progress = Math.min(100, (pointsInCurrentLevel / pointsNeededForLevel) * 100)
 
-  const totemAnimal = TOTEM_ANIMALS[level as keyof typeof TOTEM_ANIMALS] || TOTEM_ANIMALS[1]
+  const totemAnimal = TOTEM_ANIMALS[level as 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10] ?? TOTEM_ANIMALS[1]!
 
   return {
     level,

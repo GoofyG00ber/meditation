@@ -106,6 +106,27 @@
           </div>
         </div>
 
+        <!-- Level descriptions and roadmap -->
+        <div class="grid grid-cols-1 gap-6 mt-6">
+          <div class="space-y-4">
+            <div class="bg-white rounded-2xl p-6 shadow-lg">
+              <h2 class="text-xl font-bold mb-3">Elért szintek</h2>
+              <div v-if="levelInfo">
+                <div v-for="n in levelInfo.level" :key="n" class="mb-4 p-4 rounded-lg bg-gray-50 border">
+                  <div class="flex items-center gap-4">
+                    <div class="text-3xl">{{ TOTEM_ANIMALS[n]?.emoji }}</div>
+                    <div>
+                      <div class="font-semibold">{{ LEVEL_DESCRIPTIONS[n]?.title || TOTEM_ANIMALS[n]?.name }}</div>
+                      <div class="italic text-sm text-gray-600">{{ LEVEL_DESCRIPTIONS[n]?.quote }}</div>
+                    </div>
+                  </div>
+                  <p class="mt-3 text-gray-700 text-sm">{{ LEVEL_DESCRIPTIONS[n]?.description }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <!-- Back Button -->
         <div class="mt-6 text-center">
           <router-link
@@ -124,7 +145,7 @@
 import { computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '../stores/auth'
-import { BADGES } from '../utils/points'
+import { BADGES, LEVEL_DESCRIPTIONS, TOTEM_ANIMALS } from '../utils/points'
 
 const router = useRouter()
 const authStore = useAuthStore()
@@ -152,4 +173,6 @@ function getBadgeName(badgeId: string): string {
   const badge = BADGES.find(b => b.id === badgeId)
   return badge?.name || badgeId
 }
+
+// imported symbols are available in the template
 </script>

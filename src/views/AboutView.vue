@@ -156,7 +156,7 @@
 <script setup lang="ts">
 import { placeholderFor } from '../utils/placeholders'
 
-const aboutImg1 = placeholderFor(0) as string
+const aboutImg1 = placeholderFor(3) as string
 const missionImg = placeholderFor(1) as string
 
 // Team member photos

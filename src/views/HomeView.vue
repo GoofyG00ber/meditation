@@ -33,9 +33,33 @@ Rólunk
 
 <main class="container mx-auto px-6 py-12">
 
+<!-- Questionnaire Call-to-Action -->
+<section class="mb-16 -mt-6">
+  <div class="bg-white backdrop-blur-lg rounded-3xl p-8 md:p-10 shadow-2xl border border-gray-200">
+    <div class="flex flex-col md:flex-row items-center gap-6">
+      <div class="text-6xl md:text-7xl">🦋</div>
+      <div class="flex-1 text-center md:text-left">
+        <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-3">
+          Fedezd fel a totemállatodat!
+        </h2>
+        <p class="text-gray-700 mb-4">
+          Töltsd ki a stresszkezelési kérdőívet és ismerd meg, melyik totemállat tükrözi a jelenlegi lelkiállapotodat.
+          <span class="font-semibold text-success">+50 pont jár érte!</span>
+        </p>
+        <router-link
+          to="/questionnaire"
+          class="inline-block bg-white text-black font-bold px-8 py-3 rounded-xl shadow-lg border border-gray-200 hover:bg-gray-100 transition-all hover:scale-105 focus:outline-none focus:ring-0"
+        >
+          Kérdőív kitöltése →
+        </router-link>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- Attention Block -->
 <section class="mb-16 -mt-6">
-<div class="bg-gradient-to-r from-accent/30 to-success/30 backdrop-blur-lg rounded-3xl p-10 md:p-14 shadow-2xl border border-white/40 transform hover:scale-[1.02] transition-transform duration-300">
+<div class="bg-white backdrop-blur-lg rounded-3xl p-10 md:p-14 shadow-2xl border border-white/40 transform hover:scale-[1.02] transition-transform duration-300">
 <div class="max-w-4xl mx-auto text-center">
 <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-6 leading-relaxed">
 Az orvosi hivatás kihívásaihoz nemcsak tudás, hanem lelki állóképesség is kell.
@@ -60,10 +84,10 @@ hogy fókuszált, tudatos és kiegyensúlyozott maradj – akár reggel, tanulá
       :to="feature.to"
     />
   </div>
-  <div class="text-center mt-8">
-    <router-link 
-      to="/sessions" 
-      class="inline-block bg-accent text-black font-bold px-8 py-4 rounded-xl hover:bg-accent/80 transition-all hover:scale-105 shadow-lg"
+    <div class="text-center mt-8">
+    <router-link
+      to="/sessions"
+      class="inline-block bg-white text-black font-bold px-8 py-4 rounded-xl shadow-lg border border-gray-200 hover:bg-gray-100 transition-all hover:scale-105"
     >
       Összes meditációs módszer →
     </router-link>
@@ -72,7 +96,7 @@ hogy fókuszált, tudatos és kiegyensúlyozott maradj – akár reggel, tanulá
 
 <!-- Image + text block -->
 <section class="mb-16">
-  <div class="bg-gradient-to-br from-white via-accent/5 to-success/10 rounded-3xl shadow-2xl overflow-hidden">
+  <div class="bg-white rounded-3xl shadow-2xl overflow-hidden">
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-0 items-center">
       <!-- Text Content -->
       <div class="p-8 md:p-12 lg:p-16 order-2 lg:order-1">
@@ -118,10 +142,10 @@ hogy fókuszált, tudatos és kiegyensúlyozott maradj – akár reggel, tanulá
 
       <!-- Image -->
       <div class="order-1 lg:order-2 h-64 md:h-80 lg:h-full min-h-[400px] relative overflow-hidden">
-        <img 
-          :src="illustrationImg" 
-          alt="Meditáció illusztráció" 
-          class="absolute inset-0 w-full h-full object-cover hover:scale-105 transition-transform duration-700" 
+        <img
+          :src="illustrationImg"
+          alt="Meditáció illusztráció"
+          class="absolute inset-0 w-full h-full object-cover hover:scale-105 transition-transform duration-700"
         />
         <div class="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-r from-accent/10 to-transparent"></div>
       </div>
@@ -131,10 +155,25 @@ hogy fókuszált, tudatos és kiegyensúlyozott maradj – akár reggel, tanulá
 </main>
 </div>
 
+<!-- Questionnaire Modal -->
+<QuestionnaireModal
+  :is-open="showQuestionnaireModal || authStore.shouldShowQuestionnaire"
+  :is-level-up="authStore.shouldShowQuestionnaire"
+  @close="handleQuestionnaireClose"
+  @submit="handleQuestionnaireSubmit"
+/>
+
 </template>
 
 <script setup lang="ts">
 import FeatureCard from '../components/FeatureCard.vue'
+import QuestionnaireModal from '../components/QuestionnaireModal.vue'
+import { useAuthStore } from '../stores/auth'
+import { ref } from 'vue'
+import type { QuestionnaireResult } from '../types/user'
+
+const authStore = useAuthStore()
+const showQuestionnaireModal = ref(false)
 
 // Use placeholder.jpg for hero image (consistent, no randomization)
 const heroImg = '/placeholder.jpg'
@@ -147,6 +186,16 @@ const featuredExercises = [
   { title: 'Légzésszabályozás', description: 'Légzésszabályozó gyakorlatok vizuális vezérléssel.', to: '/features/breathing' },
   { title: 'Napi visszatekintés', description: 'Gondold át a napodat békében.', to: '/features/daily-reflection' },
 ]
+
+async function handleQuestionnaireSubmit(result: QuestionnaireResult) {
+  await authStore.saveQuestionnaireResult(result)
+  // Modal will auto-close after showing result
+}
+
+function handleQuestionnaireClose() {
+  showQuestionnaireModal.value = false
+  authStore.dismissQuestionnaire()
+}
 </script>
 
 <style scoped>

@@ -1,7 +1,8 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
-import type { User, UserProfile, LoginCredentials, RegisterData } from '../types/user'
+import type { User, UserProfile, LoginCredentials, RegisterData, QuestionnaireResult } from '../types/user'
 import { calculateLevel, checkNewBadges } from '../utils/points'
+import { QUESTIONNAIRE_REWARD_POINTS } from '../utils/questionnaire'
 
 // Use environment variable or fall back to localhost for development
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001'
@@ -11,6 +12,8 @@ export const useAuthStore = defineStore('auth', () => {
   const isGuest = ref(true)
   const isLoading = ref(false)
   const error = ref<string | null>(null)
+  const shouldShowQuestionnaire = ref(false)
+  const lastLevelAchieved = ref<number | null>(null)
 
   const isAuthenticated = computed(() => currentUser.value !== null)
   const levelInfo = computed(() => {
@@ -117,10 +120,11 @@ export const useAuthStore = defineStore('auth', () => {
   async function addPoints(points: number, exerciseType?: string) {
     if (!currentUser.value) {
       // Guest user - show notification
-      return { success: false, newBadges: [] }
+      return { success: false, newBadges: [], leveledUp: false }
     }
 
     try {
+      const oldLevel = currentUser.value.level
       const newPoints = currentUser.value.points + points
       const newLevelInfo = calculateLevel(newPoints)
 
@@ -169,13 +173,21 @@ export const useAuthStore = defineStore('auth', () => {
 
       if (response.ok) {
         currentUser.value = updatedUser
-        return { success: true, newBadges }
+        
+        // Check if user leveled up
+        const leveledUp = newLevelInfo.level > oldLevel
+        if (leveledUp) {
+          lastLevelAchieved.value = newLevelInfo.level
+          shouldShowQuestionnaire.value = true
+        }
+        
+        return { success: true, newBadges, leveledUp }
       }
 
-      return { success: false, newBadges: [] }
+      return { success: false, newBadges: [], leveledUp: false }
     } catch {
       error.value = 'Failed to update points'
-      return { success: false, newBadges: [] }
+      return { success: false, newBadges: [], leveledUp: false }
     }
   }
 
@@ -206,6 +218,53 @@ export const useAuthStore = defineStore('auth', () => {
     }
   }
 
+  async function saveQuestionnaireResult(result: QuestionnaireResult) {
+    if (!currentUser.value) {
+      return { success: false }
+    }
+
+    try {
+      const questionnaireResults = [...(currentUser.value.questionnaireResults || []), result]
+      const hasCompletedQuestionnaire = true
+
+      // Award points for completing questionnaire
+      const newPoints = currentUser.value.points + QUESTIONNAIRE_REWARD_POINTS
+      const newLevelInfo = calculateLevel(newPoints)
+
+      const response = await fetch(`${API_URL}/users/${currentUser.value.id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          questionnaireResults,
+          hasCompletedQuestionnaire,
+          points: newPoints,
+          level: newLevelInfo.level
+        })
+      })
+
+      if (response.ok) {
+        currentUser.value = {
+          ...currentUser.value,
+          questionnaireResults,
+          hasCompletedQuestionnaire,
+          points: newPoints,
+          level: newLevelInfo.level
+        }
+        return { success: true }
+      }
+
+      return { success: false }
+    } catch {
+      error.value = 'Failed to save questionnaire'
+      return { success: false }
+    }
+  }
+
+  function dismissQuestionnaire() {
+    shouldShowQuestionnaire.value = false
+    lastLevelAchieved.value = null
+  }
+
   return {
     currentUser,
     isGuest,
@@ -213,11 +272,15 @@ export const useAuthStore = defineStore('auth', () => {
     isLoading,
     error,
     levelInfo,
+    shouldShowQuestionnaire,
+    lastLevelAchieved,
     login,
     register,
     logout,
     loadUserFromStorage,
     addPoints,
-    addAchievement
+    addAchievement,
+    saveQuestionnaireResult,
+    dismissQuestionnaire
   }
 })

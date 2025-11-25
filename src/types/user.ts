@@ -10,6 +10,8 @@ export interface User {
   badges?: string[]
   exerciseCounts?: Record<string, number>
   featuresTried?: string[]
+  questionnaireResults?: QuestionnaireResult[]
+  hasCompletedQuestionnaire?: boolean
 }
 
 export interface UserProfile {
@@ -23,6 +25,8 @@ export interface UserProfile {
   badges?: string[]
   exerciseCounts?: Record<string, number>
   featuresTried?: string[]
+  questionnaireResults?: QuestionnaireResult[]
+  hasCompletedQuestionnaire?: boolean
 }
 
 export interface LoginCredentials {
@@ -41,4 +45,11 @@ export interface GameResult {
   score: number
   pointsEarned: number
   timestamp: string
+}
+
+export interface QuestionnaireResult {
+  answers: Record<number, number | string>
+  totalPoints: number
+  totemAnimal: string
+  timestamp: number
 }

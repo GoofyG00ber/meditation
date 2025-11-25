@@ -13,6 +13,7 @@ import WhackAMoleView from '../views/feature/WhackAMoleView.vue'
 import LoginView from '../views/LoginView.vue'
 import RegisterView from '../views/RegisterView.vue'
 import ProfileView from '../views/ProfileView.vue'
+import QuestionnaireView from '../views/QuestionnaireView.vue'
 import AszfView from '../views/AszfView.vue'
 import AdatvedelmiSzabalyzatView from '../views/AdatvedelmiSzabalyzatView.vue'
 
@@ -76,6 +77,7 @@ const routes = [
   { path: '/login', name: 'Login', component: LoginView },
   { path: '/register', name: 'Register', component: RegisterView },
   { path: '/profile', name: 'Profile', component: ProfileView },
+  { path: '/questionnaire', name: 'Questionnaire', component: QuestionnaireView },
   { path: '/aszf', name: 'Aszf', component: AszfView },
   { path: '/adatvedelmi-szabalyzat', name: 'AdatvedelmiSzabalyzat', component: AdatvedelmiSzabalyzatView },
 ]
