@@ -5,7 +5,7 @@ export const POINTS_CONFIG = {
   WHACK_A_MOLE_PER_SCORE: 2,
   BREATHING_BASE: 20,
   BREATHING_PER_CYCLE: 5,
-  
+
   // Fixed-duration meditation exercises
   MORNING_MINDFULNESS: 50,
   MORNING_AFFIRMATIONS: 30,
@@ -19,7 +19,7 @@ export const POINTS_CONFIG = {
   PANIC_RELIEF: 30,
   GROUNDING: 25,
   TIMED_MEDITATION_PER_MINUTE: 5,
-  
+
   // First-time bonuses
   FIRST_TRY_BONUS: 20,
 
@@ -59,16 +59,16 @@ export const BADGES: Badge[] = [
   { id: 'evening_seeker', name: 'Esti Nyugalom Keresője', description: 'Kipróbáltad az első esti gyakorlatot', emoji: '🌙', requirement: { type: 'feature_try', feature: 'evening' } },
   { id: 'stress_warrior', name: 'Stressz Harcos', description: 'Kipróbáltad az első stresszoldó gyakorlatot', emoji: '🛡️', requirement: { type: 'feature_try', feature: 'stress' } },
   { id: 'breathing_beginner', name: 'Légzés Kezdő', description: 'Kipróbáltad a légzésgyakorlatot', emoji: '💨', requirement: { type: 'feature_try', feature: 'breathing' } },
-  
+
   // Single exercise achievement badges
   { id: 'perfect_focus', name: 'Tökéletes Fókusz', description: 'Szerezz 100 pontot egy gyakorlatból', emoji: '🎯', requirement: { type: 'points_single', points: 100 } },
   { id: 'zen_master', name: 'Zen Mester', description: 'Szerezz 200 pontot egy gyakorlatból', emoji: '🧘', requirement: { type: 'points_single', points: 200 } },
-  
+
   // Exercise repetition badges
   { id: 'consistent_5', name: 'Következetes', description: 'Végezz el egy gyakorlatot 5 alkalommal', emoji: '⭐', requirement: { type: 'exercise_count', count: 5 } },
   { id: 'dedicated_10', name: 'Elkötelezett', description: 'Végezz el egy gyakorlatot 10 alkalommal', emoji: '🌟', requirement: { type: 'exercise_count', count: 10 } },
   { id: 'persistent_25', name: 'Kitartó', description: 'Végezz el egy gyakorlatot 25 alkalommal', emoji: '💫', requirement: { type: 'exercise_count', count: 25 } },
-  
+
   // Total points badges
   { id: 'rookie', name: 'Újonc', description: 'Gyűjts össze 100 pontot', emoji: '🥉', requirement: { type: 'total_points', points: 100 } },
   { id: 'practitioner', name: 'Gyakorló', description: 'Gyűjts össze 500 pontot', emoji: '🥈', requirement: { type: 'total_points', points: 500 } },

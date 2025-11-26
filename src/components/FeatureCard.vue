@@ -1,7 +1,7 @@
 <template>
-  <router-link 
-    v-if="to" 
-    :to="to" 
+  <router-link
+    v-if="to"
+    :to="to"
     :class="[
       'block bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all transform hover:-translate-y-2 hover:scale-[1.02] cursor-pointer group focus:outline-none focus:ring-0',
       isWhackAMole ? 'rainbow-glow' : ''
@@ -21,8 +21,8 @@
       </div>
     </div>
   </router-link>
-  
-  <div 
+
+  <div
     v-else
     class="block bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all transform hover:-translate-y-2 cursor-default group focus:outline-none focus:ring-0"
   >
@@ -71,7 +71,7 @@ const getImageIndex = (title: string): number => {
     'Földelés gyakorlat': 1,
     'Whack-a-Mole játék': 2
   }
-  
+
   return imageMap[title] ?? 0
 }
 

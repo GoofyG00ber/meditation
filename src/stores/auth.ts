@@ -173,14 +173,14 @@ export const useAuthStore = defineStore('auth', () => {
 
       if (response.ok) {
         currentUser.value = updatedUser
-        
+
         // Check if user leveled up
         const leveledUp = newLevelInfo.level > oldLevel
         if (leveledUp) {
           lastLevelAchieved.value = newLevelInfo.level
           shouldShowQuestionnaire.value = true
         }
-        
+
         return { success: true, newBadges, leveledUp }
       }
 
@@ -224,6 +224,27 @@ export const useAuthStore = defineStore('auth', () => {
     }
 
     try {
+      // Save to questionnaire_responses table
+      const questionnaireResponse = {
+        userId: currentUser.value.id,
+        answers: result.answers,
+        totalPoints: result.totalPoints,
+        totemAnimal: result.totemAnimal,
+        timestamp: result.timestamp
+      }
+
+      const response = await fetch(`${API_URL}/questionnaire-responses`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(questionnaireResponse)
+      })
+
+      if (!response.ok) {
+        console.error('Failed to save questionnaire response to database')
+        return { success: false }
+      }
+
+      // Update user's questionnaire data (for backward compatibility)
       const questionnaireResults = [...(currentUser.value.questionnaireResults || []), result]
       const hasCompletedQuestionnaire = true
 
@@ -231,7 +252,7 @@ export const useAuthStore = defineStore('auth', () => {
       const newPoints = currentUser.value.points + QUESTIONNAIRE_REWARD_POINTS
       const newLevelInfo = calculateLevel(newPoints)
 
-      const response = await fetch(`${API_URL}/users/${currentUser.value.id}`, {
+      const userUpdateResponse = await fetch(`${API_URL}/users/${currentUser.value.id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -242,7 +263,7 @@ export const useAuthStore = defineStore('auth', () => {
         })
       })
 
-      if (response.ok) {
+      if (userUpdateResponse.ok) {
         currentUser.value = {
           ...currentUser.value,
           questionnaireResults,
@@ -254,7 +275,8 @@ export const useAuthStore = defineStore('auth', () => {
       }
 
       return { success: false }
-    } catch {
+    } catch (err) {
+      console.error('Failed to save questionnaire:', err)
       error.value = 'Failed to save questionnaire'
       return { success: false }
     }

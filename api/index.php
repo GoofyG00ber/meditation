@@ -19,6 +19,8 @@ if ($path === '/login' && $method === 'POST') {
     updateUser($pdo, $matches[1]);
 } elseif (preg_match('/^\/users\/(.+)$/', $path, $matches) && $method === 'DELETE') {
     deleteUser($pdo, $matches[1]);
+} elseif ($path === '/questionnaire-responses' && $method === 'POST') {
+    saveQuestionnaireResponse($pdo);
 } else {
     http_response_code(404);
     echo json_encode(['error' => 'Not found']);
@@ -53,6 +55,15 @@ function handleLogin($pdo) {
         
         // Remove password from response
         unset($user['password']);
+        
+        // Decode JSON fields
+        $user['achievements'] = json_decode($user['achievements'], true);
+        $user['badges'] = json_decode($user['badges'], true);
+        $user['exerciseCounts'] = json_decode($user['exerciseCounts'], true);
+        $user['featuresTried'] = json_decode($user['featuresTried'], true);
+        $user['questionnaireResults'] = json_decode($user['questionnaireResults'], true);
+        $user['hasCompletedQuestionnaire'] = (bool) $user['hasCompletedQuestionnaire'];
+        
         echo json_encode($user);
     } catch (PDOException $e) {
         http_response_code(500);
@@ -93,8 +104,18 @@ function getUsers($pdo) {
     }
 
     try {
-        $stmt = $pdo->query('SELECT id, username, email, points, level, createdAt, achievements FROM users');
+        $stmt = $pdo->query('SELECT id, username, email, points, level, created_at AS createdAt, achievements, badges, exercise_counts AS exerciseCounts, features_tried AS featuresTried, questionnaire_results AS questionnaireResults, has_completed_questionnaire AS hasCompletedQuestionnaire FROM users');
         $users = $stmt->fetchAll();
+        
+        foreach ($users as &$user) {
+            $user['achievements'] = json_decode($user['achievements'], true);
+            $user['badges'] = json_decode($user['badges'], true);
+            $user['exerciseCounts'] = json_decode($user['exerciseCounts'], true);
+            $user['featuresTried'] = json_decode($user['featuresTried'], true);
+            $user['questionnaireResults'] = json_decode($user['questionnaireResults'], true);
+            $user['hasCompletedQuestionnaire'] = (bool) $user['hasCompletedQuestionnaire'];
+        }
+        
         echo json_encode($users);
     } catch (PDOException $e) {
         http_response_code(500);
@@ -105,7 +126,7 @@ function getUsers($pdo) {
 // Get single user
 function getUser($pdo, $id) {
     try {
-        $stmt = $pdo->prepare('SELECT id, username, email, points, level, createdAt, achievements FROM users WHERE id = ?');
+        $stmt = $pdo->prepare('SELECT id, username, email, points, level, created_at AS createdAt, achievements, badges, exercise_counts AS exerciseCounts, features_tried AS featuresTried, questionnaire_results AS questionnaireResults, has_completed_questionnaire AS hasCompletedQuestionnaire FROM users WHERE id = ?');
         $stmt->execute([$id]);
         $user = $stmt->fetch();
         
@@ -114,6 +135,13 @@ function getUser($pdo, $id) {
             echo json_encode(['error' => 'User not found']);
             return;
         }
+        
+        $user['achievements'] = json_decode($user['achievements'], true);
+        $user['badges'] = json_decode($user['badges'], true);
+        $user['exerciseCounts'] = json_decode($user['exerciseCounts'], true);
+        $user['featuresTried'] = json_decode($user['featuresTried'], true);
+        $user['questionnaireResults'] = json_decode($user['questionnaireResults'], true);
+        $user['hasCompletedQuestionnaire'] = (bool) $user['hasCompletedQuestionnaire'];
         
         echo json_encode($user);
     } catch (PDOException $e) {
@@ -152,13 +180,18 @@ function registerUser($pdo) {
         $hashedPassword = password_hash($data['password'], PASSWORD_BCRYPT);
         $userId = (string) (time() * 1000);
         
-        $stmt = $pdo->prepare('INSERT INTO users (id, username, email, password, points, level, createdAt, achievements) VALUES (?, ?, ?, ?, 0, 1, NOW(), ?)');
+        $stmt = $pdo->prepare('INSERT INTO users (id, username, email, password, points, level, achievements, badges, exerciseCounts, featuresTried, questionnaireResults, hasCompletedQuestionnaire) VALUES (?, ?, ?, ?, 0, 1, ?, ?, ?, ?, ?, ?)');
         $stmt->execute([
             $userId,
             $data['username'],
             $data['email'],
             $hashedPassword,
-            json_encode([])
+            json_encode([]),
+            json_encode([]),
+            json_encode(new stdClass()),
+            json_encode([]),
+            json_encode([]),
+            0
         ]);
         
         echo json_encode([
@@ -168,7 +201,12 @@ function registerUser($pdo) {
             'points' => 0,
             'level' => 1,
             'createdAt' => date('c'),
-            'achievements' => []
+            'achievements' => [],
+            'badges' => [],
+            'exerciseCounts' => new stdClass(),
+            'featuresTried' => [],
+            'questionnaireResults' => [],
+            'hasCompletedQuestionnaire' => false
         ]);
         http_response_code(201);
     } catch (PDOException $e) {
@@ -215,6 +253,26 @@ function updateUser($pdo, $id) {
             $updates[] = 'achievements = ?';
             $values[] = json_encode($data['achievements']);
         }
+        if (isset($data['badges'])) {
+            $updates[] = 'badges = ?';
+            $values[] = json_encode($data['badges']);
+        }
+        if (isset($data['exerciseCounts'])) {
+            $updates[] = 'exerciseCounts = ?';
+            $values[] = json_encode($data['exerciseCounts']);
+        }
+        if (isset($data['featuresTried'])) {
+            $updates[] = 'featuresTried = ?';
+            $values[] = json_encode($data['featuresTried']);
+        }
+        if (isset($data['questionnaireResults'])) {
+            $updates[] = 'questionnaireResults = ?';
+            $values[] = json_encode($data['questionnaireResults']);
+        }
+        if (isset($data['hasCompletedQuestionnaire'])) {
+            $updates[] = 'hasCompletedQuestionnaire = ?';
+            $values[] = $data['hasCompletedQuestionnaire'] ? 1 : 0;
+        }
         
         if (empty($updates)) {
             http_response_code(400);
@@ -228,9 +286,16 @@ function updateUser($pdo, $id) {
         $stmt->execute($values);
         
         // Fetch updated user
-        $stmt = $pdo->prepare('SELECT id, username, email, points, level, createdAt, achievements FROM users WHERE id = ?');
+        $stmt = $pdo->prepare('SELECT id, username, email, points, level, created_at AS createdAt, achievements, badges, exercise_counts AS exerciseCounts, features_tried AS featuresTried, questionnaire_results AS questionnaireResults, has_completed_questionnaire AS hasCompletedQuestionnaire FROM users WHERE id = ?');
         $stmt->execute([$id]);
         $user = $stmt->fetch();
+        
+        $user['achievements'] = json_decode($user['achievements'], true);
+        $user['badges'] = json_decode($user['badges'], true);
+        $user['exerciseCounts'] = json_decode($user['exerciseCounts'], true);
+        $user['featuresTried'] = json_decode($user['featuresTried'], true);
+        $user['questionnaireResults'] = json_decode($user['questionnaireResults'], true);
+        $user['hasCompletedQuestionnaire'] = (bool) $user['hasCompletedQuestionnaire'];
         
         echo json_encode($user);
     } catch (PDOException $e) {
@@ -252,6 +317,33 @@ function deleteUser($pdo, $id) {
         }
         
         http_response_code(204);
+    } catch (PDOException $e) {
+        http_response_code(500);
+        echo json_encode(['error' => 'Database error']);
+    }
+}
+
+// Save questionnaire response
+function saveQuestionnaireResponse($pdo) {
+    $data = json_decode(file_get_contents('php://input'), true);
+    
+    if (empty($data['userId']) || empty($data['answers']) || !isset($data['totalPoints']) || empty($data['totemAnimal'])) {
+        http_response_code(400);
+        echo json_encode(['error' => 'Missing required fields']);
+        return;
+    }
+    
+    try {
+        $stmt = $pdo->prepare('INSERT INTO questionnaire_responses (user_id, answers, total_points, totem_animal) VALUES (?, ?, ?, ?)');
+        $stmt->execute([
+            $data['userId'],
+            json_encode($data['answers']),
+            $data['totalPoints'],
+            $data['totemAnimal']
+        ]);
+        
+        echo json_encode(['success' => true]);
+        http_response_code(201);
     } catch (PDOException $e) {
         http_response_code(500);
         echo json_encode(['error' => 'Database error']);
